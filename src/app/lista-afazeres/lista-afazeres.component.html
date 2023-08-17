@@ -1,0 +1,35 @@
+
+<div class="container-fluid p-3">
+    <h1>Tarefas</h1>
+    <button class="btn btn-primary" (click)="abrirDialogo()">Adicionar</button>
+</div>
+
+
+<div class="container-fluid">
+    <div class="card p-3">
+        <table class="table table-striped" >
+            <tr>
+                <th>Id da tarefa</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Finalizada</th>
+                <th>Data início</th>
+                <th>Data Término</th>
+            </tr>
+            <tr *ngFor="let tarefa of tarefas" class="">
+                <td >{{tarefa.id}}</td>
+                <td >{{tarefa.nome}} </td>
+                <td >{{tarefa.descricao}} </td>
+                <td >{{tarefa.finalizada ? 'Sim': 'Não'}} </td>
+                <td>{{tarefa.dataInicio | date: 'dd/MM/yyyy HH:mm'}}</td>
+                <td>{{tarefa.dataTermino | date: 'dd/MM/yyyy HH:mm'}}</td>
+                <td>
+                    <button class="btn btn-close" (click)="excluir()"></button>
+                    <button class="btn btn-primary">Alterar</button>
+                    <button class="btn btn-primary">Finalizar</button>
+                </td>
+                
+            </tr>
+        </table>
+    </div>
+</div>

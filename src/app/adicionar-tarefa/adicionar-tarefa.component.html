@@ -1,0 +1,50 @@
+ <div class="fade show" [hidden]="submetido">
+    <div class="modal-content">
+      <div class="modal-header">
+         <h4 class="modal-title">Adicionar tarefa</h4>
+         <button class="btn btn-close" (click)="fecharDialogo()"></button>
+      </div>
+      <!-- name deve ser defindo para que o ngModel possa validar o campo. Já o id é para o label -->
+      <div class="modal-body">
+        <form class="form-group" #adicionarTarefaForm="ngForm" (ngSubmit)="confirmar()">
+          <label for="nome">Nome da tarefa</label>
+          <input name="nome" ngbAutofocus id="nome" required [(ngModel)]="tarefa.nome" type="text" class="form-control" 
+            placeholder="Nome da tarefa" #nome="ngModel" minlength="6">
+          <div class="alert alert-danger" *ngIf="nome.invalid && (nome.dirty || nome.touched)">
+            <div *ngIf="nome.errors?.['required']">
+              Nome é requerido
+            </div>
+            <div *ngIf="nome.errors?.['minlength']">
+              Comprimento mínimo deve ser de 6
+            </div>
+          </div>
+
+          <label for="descricao">Descrição</label>
+          <textarea class="form-control" placeholder="Descrição da tarefa"
+           [(ngModel)]="tarefa.descricao" #descricao="ngModel" name="descricao" id="descricao"></textarea>
+
+          <label for="dataInicio">Data inicial</label>
+          <input name="dataInicio" type="date" class="form-control" [(ngModel)]="tarefa.dataInicio" #dataInicio="ngModel" 
+            required >
+          <div class="alert alert-danger" *ngIf="dataInicio.invalid && (dataInicio.dirty || dataInicio.touched)">
+            <div *ngIf="dataInicio.errors?.['required']">
+              Data de início requerida
+            </div>
+          </div>
+          
+          <div class="modal-footer">
+            <button class="btn btn-secundary form-control" (click)="fecharDialogo()">Cancelar</button>
+            <button class="btn btn-primary form-control" [disabled]="adicionarTarefaForm.form.invalid" 
+              type="submit">Confirmar</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+   
+ </div> 
+  
+
+
+
+
