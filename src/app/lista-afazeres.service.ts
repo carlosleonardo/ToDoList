@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Tarefa } from './tarefa';
-import { Observable } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParamsOptions } from '@angular/common/http';
 
 @Injectable({
@@ -24,7 +24,9 @@ export class ListaAfazeresService {
    * @returns Observable de tarefa
    */
   obterTarefas(): Observable<Tarefa[]> {
-    return this.http.get<Tarefa[]>(this.url);
+    return this.http.get<Tarefa[]>(this.url).pipe(
+      catchError(this.handleError<Tarefa[]>('obterTarefas', []))
+    );
   }
 
   /**
@@ -56,5 +58,20 @@ export class ListaAfazeresService {
    */
   obterTarefa(id: number) : Observable<Tarefa> {
     return this.http.get<Tarefa>(`${this.url}/${id}`);
+  }
+
+  /**
+     * Faz o tratamento do erro, registrando no log e no console
+     * 
+     * @param operation o nome da operação para registrar
+     * @param result um Observable válido
+     * @returns nada
+     */
+  private handleError<T>(operation: string  = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error);
+      
+      return of(result as T);
+    };
   }
 }
