@@ -36,7 +36,9 @@ export class ListaAfazeresService {
    * @returns Observable da tarefa
    */
   excluirTarefa(id: number): Observable<Tarefa> {
-    return this.http.delete<Tarefa>(`${this.url}/${id}`);
+    return this.http.delete<Tarefa>(`${this.url}/${id}`).pipe(
+      catchError(this.handleError<Tarefa>(`excluirTarefa id=${id}`))
+    );
   }
 
   /**

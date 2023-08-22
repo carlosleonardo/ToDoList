@@ -27,13 +27,12 @@ export class ListaAfazeresComponent implements OnInit {
     this.servico.obterTarefas().subscribe( tarefas => this.tarefas = tarefas);
   }
 
-  excluir(): void {
+  excluir(id: number): void {
     if (confirm("Tem certeza de que quer excluir a tarefa?")) {
-      
+      this.servico.excluirTarefa(id).subscribe();
+      this.obterTarefas();
     }
   }
-
-  
 
   abrirDialogo() {
     const mod = this.modal.open(AdicionarTarefaComponent, { centered: true, backdrop: 'static' });
