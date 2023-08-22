@@ -13,7 +13,6 @@ export class ListaAfazeresComponent implements OnInit {
 
   tarefas!: Tarefa[];
 
-
   ngOnInit(): void {
     this.obterTarefas();
   }
@@ -29,12 +28,21 @@ export class ListaAfazeresComponent implements OnInit {
   }
 
   excluir(): void {
-    confirm("Tem certeza de que quer excluir a tarefa?");
+    if (confirm("Tem certeza de que quer excluir a tarefa?")) {
+      
+    }
   }
+
+  
 
   abrirDialogo() {
     const mod = this.modal.open(AdicionarTarefaComponent, { centered: true, backdrop: 'static' });
-
+    mod.result.then( resultado => {
+      if(resultado) {
+        console.log(resultado)
+        this.adicionarTarefa(resultado as Tarefa);
+      }
+    });
   }
 
   adicionarTarefa(tarefa: Tarefa): void {
