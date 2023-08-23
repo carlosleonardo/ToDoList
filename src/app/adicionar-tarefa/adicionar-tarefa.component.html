@@ -1,7 +1,7 @@
  <div class="fade show" >
     <div class="modal-content">
       <div class="modal-header">
-         <h4 class="modal-title">Adicionar tarefa</h4>
+         <h4 class="modal-title">{{editando ? 'Alterar Tarefa':'Adicionar Tarefa'}}</h4>
          <button class="btn btn-close" (click)="fecharDialogo()"></button>
       </div>
       <!-- name deve ser defindo para que o ngModel possa validar o campo. Já o id é para o label -->

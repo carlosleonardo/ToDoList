@@ -16,7 +16,7 @@
                 <th>Data início</th>
                 <th>Data Término</th>
             </tr>
-            <tr *ngFor="let tarefa of tarefas" class="">
+            <tr *ngFor="let tarefa of tarefas" >
                 <td >{{tarefa.id}}</td>
                 <td >{{tarefa.nome}} </td>
                 <td >{{tarefa.descricao}} </td>
@@ -25,7 +25,7 @@
                 <td>{{tarefa.dataTermino | date: 'dd/MM/yyyy HH:mm'}}</td>
                 <td>
                     <button class="btn btn-close" (click)="excluir(tarefa.id)"></button>
-                    <button class="btn btn-primary">Alterar</button>
+                    <button class="btn btn-primary" (click)="alterarTarefa(tarefa.id)">Alterar</button>
                     <button class="btn btn-primary">Finalizar</button>
                 </td>
                 

@@ -10,10 +10,12 @@ import { TarefaDetalheComponent } from '../tarefa-detalhe/tarefa-detalhe.compone
   styleUrls: ['./adicionar-tarefa.component.css']
 })
 export class AdicionarTarefaComponent implements OnInit {
+  
   ngOnInit(): void {
     console.log(this.tarefa);
   }
   @Input() tarefa : Tarefa = {} as Tarefa;
+  @Input() editando: boolean = false;
 
   constructor(private servico: ListaAfazeresService, private modal: NgbActiveModal) {
   }

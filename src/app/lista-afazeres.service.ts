@@ -49,7 +49,9 @@ export class ListaAfazeresService {
    * @returns Observable da tarefa
    */
   adicionarTarefa(tarefa: Tarefa): Observable<Tarefa> {
-    return this.http.post<Tarefa>(this.url, tarefa, this.httpOptions);
+    return this.http.post<Tarefa>(this.url, tarefa, this.httpOptions).pipe(
+      catchError(this.handleError<Tarefa>(`adicionarTarefa id=${tarefa.id}`))
+    );
   }
 
   /**
@@ -59,7 +61,21 @@ export class ListaAfazeresService {
    * @returns Observable de tarefa
    */
   obterTarefa(id: number) : Observable<Tarefa> {
-    return this.http.get<Tarefa>(`${this.url}/${id}`);
+    return this.http.get<Tarefa>(`${this.url}/${id}`).pipe(
+      catchError(this.handleError<Tarefa>(`Òbter tarefa id = ${id}`))
+    );
+  }
+
+  /**
+   * Altera os dados de uma tarefa
+   * 
+   * @param tarefa Tarefa a ser alterada
+   * @returns Observable de tarefa
+   */
+  alterarTarefa(tarefa: Tarefa): Observable<Tarefa> {
+    return this.http.put<Tarefa>(this.url, tarefa, this.httpOptions).pipe(
+      catchError(this.handleError<Tarefa>(`Àlterar tarefa id = ${tarefa.id}`))
+    );
   }
 
   /**

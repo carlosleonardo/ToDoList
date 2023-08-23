@@ -29,9 +29,27 @@ export class ListaAfazeresComponent implements OnInit {
 
   excluir(id: number): void {
     if (confirm("Tem certeza de que quer excluir a tarefa?")) {
-      this.servico.excluirTarefa(id).subscribe();
-      this.obterTarefas();
+      this.servico.excluirTarefa(id).subscribe(()=> {
+        this.obterTarefas();
+      });
     }
+  }
+
+  alterarTarefa(id: number)
+  {
+    let modRef = this.modal.open(AdicionarTarefaComponent, { centered: true, backdrop: 'static'});
+    this.servico.obterTarefa(id).subscribe( tarefa => {
+      modRef.componentInstance.tarefa = tarefa;
+      modRef.componentInstance.editando = true;
+      modRef.result.then( resultado => {
+        if(resultado) {
+          console.log(resultado);
+          this.servico.alterarTarefa(resultado as Tarefa).subscribe( () => {
+            this.obterTarefas();
+          });
+        }
+      })
+    })
   }
 
   abrirDialogo() {
