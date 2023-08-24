@@ -13,7 +13,6 @@ import { Serializer } from '@angular/compiler';
 export class ListaAfazeresComponent implements OnInit {
 
   tarefas!: Tarefa[];
-  tarefaFinalizada: boolean = false;
 
   ngOnInit(): void {
     this.obterTarefas();
