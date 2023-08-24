@@ -24,9 +24,9 @@
                 <td>{{tarefa.dataInicio | date: 'dd/MM/yyyy HH:mm'}}</td>
                 <td>{{tarefa.dataTermino | date: 'dd/MM/yyyy HH:mm'}}</td>
                 <td>
-                    <button class="btn btn-close" (click)="excluir(tarefa.id)"></button>
-                    <button class="btn btn-primary" (click)="alterarTarefa(tarefa.id)">Alterar</button>
-                    <button class="btn btn-primary">Finalizar</button>
+                    <button class="btn btn-close" [disabled]="tarefa.finalizada" (click)="excluir(tarefa.id)"></button>
+                    <button class="btn btn-primary" [disabled]="tarefa.finalizada" (click)="alterarTarefa(tarefa.id)">Alterar</button>
+                    <button class="btn btn-primary" [disabled]="tarefa.finalizada" (click)="finalizarTarefa(tarefa.id)">Finalizar</button>
                 </td>
                 
             </tr>

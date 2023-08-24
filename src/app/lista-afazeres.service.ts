@@ -79,6 +79,21 @@ export class ListaAfazeresService {
   }
 
   /**
+   * 
+   * Finaliza a tarefa, mudando o estado para finalizado e atribuído data de término
+   * 
+   * @param tarefa tarefa a finalizar
+   * @returns Observable de Tarefa
+   */
+  finalizarTarefa(tarefa: Tarefa): Observable<Tarefa> {
+    tarefa.finalizada = true;
+    tarefa.dataTermino = new Date();
+    return this.alterarTarefa(tarefa).pipe(
+      catchError(this.handleError<Tarefa>(`Tarefa finalizada: ${tarefa.id}`))
+    );
+  }
+
+  /**
      * Faz o tratamento do erro, registrando no log e no console
      * 
      * @param operation o nome da operação para registrar

@@ -3,6 +3,7 @@ import { ListaAfazeresService } from '../lista-afazeres.service';
 import { Tarefa } from '../tarefa';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdicionarTarefaComponent } from '../adicionar-tarefa/adicionar-tarefa.component';
+import { Serializer } from '@angular/compiler';
 
 @Component({
   selector: 'app-lista-afazeres',
@@ -12,6 +13,7 @@ import { AdicionarTarefaComponent } from '../adicionar-tarefa/adicionar-tarefa.c
 export class ListaAfazeresComponent implements OnInit {
 
   tarefas!: Tarefa[];
+  tarefaFinalizada: boolean = false;
 
   ngOnInit(): void {
     this.obterTarefas();
@@ -62,6 +64,13 @@ export class ListaAfazeresComponent implements OnInit {
     });
   }
 
+  finalizarTarefa(id: number): void {
+    this.servico.obterTarefa(id).subscribe( tarefa => {
+      this.servico.finalizarTarefa(tarefa).subscribe( tarefa => {
+        this.obterTarefas();
+      })
+    });
+  }
   adicionarTarefa(tarefa: Tarefa): void {
     this.servico.adicionarTarefa(tarefa).subscribe( tarefa => this.tarefas.push(tarefa));
   }
