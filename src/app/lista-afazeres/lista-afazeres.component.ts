@@ -49,7 +49,7 @@ export class ListaAfazeresComponent implements OnInit {
             this.obterTarefas();
           });
         }
-      })
+      });
     })
   }
 
@@ -65,7 +65,7 @@ export class ListaAfazeresComponent implements OnInit {
 
   finalizarTarefa(id: number): void {
     this.servico.obterTarefa(id).subscribe( tarefa => {
-      this.servico.finalizarTarefa(tarefa).subscribe( tarefa => {
+      this.servico.finalizarTarefa(tarefa).subscribe( () => {
         this.obterTarefas();
       })
     });

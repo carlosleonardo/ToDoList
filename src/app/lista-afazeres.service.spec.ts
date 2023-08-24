@@ -20,6 +20,8 @@ describe('ListaAfazeresService', () => {
       id: 1, nome: 'Blazor', descricao: 'Uma descrição', dataInicio: new Date(),
       finalizada: false
     }
-    
+    service.adicionarTarefa(tarefa).subscribe( tarefa => {
+      service.obterTarefas().subscribe( tarefas => expect(tarefas.length).toBe(1))
+    });
   }
 });
