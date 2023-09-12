@@ -20,9 +20,14 @@
           </div>
 
           <label for="descricao">Descrição</label>
-          <textarea class="form-control" placeholder="Descrição da tarefa"
+          <textarea class="form-control" placeholder="Descrição da tarefa" maxlength="100"
            [(ngModel)]="tarefa.descricao" #descricao="ngModel" name="descricao" id="descricao"></textarea>
-
+           <div class="alert alert-danger" *ngIf="descricao.invalid && (descricao.dirty || descricao.touched)">
+             <div *ngIf="descricao.errors?.['maxlength']">
+               Tamanho máximo é de 100 caracteres
+             </div>
+           </div>
+           
           <label for="dataInicio">Data inicial</label>
           <input name="dataInicio" type="date" class="form-control" [(ngModel)]="tarefa.dataInicio" #dataInicio="ngModel" 
             required >
