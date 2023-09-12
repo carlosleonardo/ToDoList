@@ -19,8 +19,8 @@
             </tr>
             <tr *ngFor="let tarefa of tarefas" >
                 <td >{{tarefa.id}}</td>
-                <td >{{tarefa.nome}} </td>
-                <td >{{tarefa.descricao}} </td>
+                <td class="{{tarefa.finalizada ? 'cortado': ''}}">{{tarefa.nome}} </td>
+                <td class="{{tarefa.finalizada ? 'cortado': ''}}">{{tarefa.descricao}} </td>
                 <td >{{tarefa.finalizada ? 'Sim': 'Não'}} </td>
                 <td>{{tarefa.dataInicio | date: 'dd/MM/yyyy HH:mm'}}</td>
                 <td>{{tarefa.dataTermino | date: 'dd/MM/yyyy HH:mm'}}</td>
