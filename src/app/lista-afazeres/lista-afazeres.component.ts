@@ -64,11 +64,14 @@ export class ListaAfazeresComponent implements OnInit {
   }
 
   finalizarTarefa(id: number): void {
-    this.servico.obterTarefa(id).subscribe( tarefa => {
-      this.servico.finalizarTarefa(tarefa).subscribe( () => {
-        this.obterTarefas();
-      })
-    });
+    if(confirm("Certo de que quer finalizar a tarefa?"))
+    {
+      this.servico.obterTarefa(id).subscribe( tarefa => {
+        this.servico.finalizarTarefa(tarefa).subscribe( () => {
+          this.obterTarefas();
+        })
+      });
+    }
   }
   adicionarTarefa(tarefa: Tarefa): void {
     this.servico.adicionarTarefa(tarefa).subscribe( tarefa => this.tarefas.push(tarefa));
