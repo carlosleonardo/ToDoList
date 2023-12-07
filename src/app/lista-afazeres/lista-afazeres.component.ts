@@ -13,9 +13,10 @@ import { Serializer } from '@angular/compiler';
 export class ListaAfazeresComponent implements OnInit {
 
   tarefas!: Tarefa[];
+  ocultarFinalizadas: boolean = true;
 
   ngOnInit(): void {
-    this.obterTarefas();
+    this.alternarFinalizadas();
   }
 
   /**
@@ -31,7 +32,7 @@ export class ListaAfazeresComponent implements OnInit {
   excluir(id: number): void {
     if (confirm("Tem certeza de que quer excluir a tarefa?")) {
       this.servico.excluirTarefa(id).subscribe(()=> {
-        this.obterTarefas();
+        this.alternarFinalizadas();
       });
     }
   }
@@ -46,7 +47,7 @@ export class ListaAfazeresComponent implements OnInit {
         if(resultado) {
           console.log(resultado);
           this.servico.alterarTarefa(resultado as Tarefa).subscribe( () => {
-            this.obterTarefas();
+            this.alternarFinalizadas();
           });
         }
       });
@@ -68,7 +69,7 @@ export class ListaAfazeresComponent implements OnInit {
     {
       this.servico.obterTarefa(id).subscribe( tarefa => {
         this.servico.finalizarTarefa(tarefa).subscribe( () => {
-          this.obterTarefas();
+          this.alternarFinalizadas();
         })
       });
     }
@@ -76,4 +77,22 @@ export class ListaAfazeresComponent implements OnInit {
   adicionarTarefa(tarefa: Tarefa): void {
     this.servico.adicionarTarefa(tarefa).subscribe( tarefa => this.tarefas.push(tarefa));
   }
+
+  alternarFinalizadas(): void {
+    if(this.ocultarFinalizadas) {
+      this.obterTarefasNaoFinalizadas();
+    } else {
+      this.obterTarefas();
+    }
+  }
+
+  obterTarefasNaoFinalizadas(): void {
+    this.servico.obterTarefas().subscribe( tarefas => {
+      this.tarefas = tarefas.filter( tarefa => {
+        return tarefa.finalizada == false;
+      })
+    });
+    
+  }
+  
 }

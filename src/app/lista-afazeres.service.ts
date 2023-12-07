@@ -93,6 +93,7 @@ export class ListaAfazeresService {
     );
   }
 
+  
   /**
      * Faz o tratamento do erro, registrando no log e no console
      * 

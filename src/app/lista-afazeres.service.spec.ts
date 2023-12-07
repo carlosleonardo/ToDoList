@@ -24,4 +24,20 @@ describe('ListaAfazeresService', () => {
       service.obterTarefas().subscribe( tarefas => expect(tarefas.length).toBe(1))
     });
   }
+
+  it('Obter tarefas finalizadas'), () => {
+    let tarefa: Tarefa = {
+      id: 1, nome: 'Angular', descricao: 'Uma descrição', dataInicio: new Date(),
+      finalizada: false, dataTermino: new Date()
+    }
+    service.adicionarTarefa(tarefa).subscribe( tarefa => {
+
+    });
+    tarefa = { id: 2, nome: 'Blazor', descricao: 'Descrição', dataInicio: new Date(),
+      finalizada: true, dataTermino: new Date()
+    };
+    service.adicionarTarefa(tarefa);
+
+    
+  }
 });
