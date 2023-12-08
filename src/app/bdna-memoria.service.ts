@@ -14,7 +14,27 @@ export class BDNaMemoriaService implements InMemoryDbService {
       { id: 1, nome: 'Curso Angular', descricao : 'Um curso de Angular', finalizada: false, 
       dataInicio: new Date(), dataTermino: new Date('')},
       { id: 2, nome: 'Curso Blazor', descricao : 'Um curso de blazor', finalizada: false, 
-        dataInicio: new Date(), dataTermino: new Date('')}
+        dataInicio: new Date(), dataTermino: new Date('')},
+      /*{ id: 1, nome: 'Curso Angular', descricao : 'Um curso de Angular', finalizada: false, 
+        dataInicio: new Date(), dataTermino: new Date('')},
+      { id: 2, nome: 'Curso Blazor', descricao : 'Um curso de blazor', finalizada: false, 
+          dataInicio: new Date(), dataTermino: new Date('')},
+      { id: 1, nome: 'Curso Angular', descricao : 'Um curso de Angular', finalizada: false, 
+      dataInicio: new Date(), dataTermino: new Date('')},
+      { id: 2, nome: 'Curso Blazor', descricao : 'Um curso de blazor', finalizada: false, 
+        dataInicio: new Date(), dataTermino: new Date('')},
+        { id: 1, nome: 'Curso Angular', descricao : 'Um curso de Angular', finalizada: false, 
+        dataInicio: new Date(), dataTermino: new Date('')},
+        { id: 2, nome: 'Curso Blazor', descricao : 'Um curso de blazor', finalizada: false, 
+          dataInicio: new Date(), dataTermino: new Date('')},
+      { id: 1, nome: 'Curso Angular', descricao : 'Um curso de Angular', finalizada: false, 
+      dataInicio: new Date(), dataTermino: new Date('')},
+      { id: 2, nome: 'Curso Blazor', descricao : 'Um curso de blazor', finalizada: false, 
+        dataInicio: new Date(), dataTermino: new Date('')},
+        { id: 1, nome: 'Curso Angular', descricao : 'Um curso de Angular', finalizada: false, 
+        dataInicio: new Date(), dataTermino: new Date('')},
+        { id: 2, nome: 'Curso Blazor', descricao : 'Um curso de blazor', finalizada: false, 
+          dataInicio: new Date(), dataTermino: new Date('')}*/
     ];
     return {tarefas};
   }
