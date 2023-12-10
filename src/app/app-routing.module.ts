@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ListaAfazeresComponent } from './lista-afazeres/lista-afazeres.component';
+import { PaginaInicialComponent } from './pagina-inicial/pagina-inicial.component';
+import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao-encontrada.component';
 
 const routes: Routes = [{
   path: 'tarefas',
@@ -8,8 +10,11 @@ const routes: Routes = [{
 }, 
 {
   path: '',
-  redirectTo: 'tarefas',
-  pathMatch: 'full'
+  component: PaginaInicialComponent
+},
+{
+  path: '**',
+  component: PaginaNaoEncontradaComponent
 }
 ];
 

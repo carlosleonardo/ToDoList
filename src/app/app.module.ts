@@ -11,6 +11,8 @@ import { TarefaDetalheComponent } from './tarefa-detalhe/tarefa-detalhe.componen
 import { AdicionarTarefaComponent } from './adicionar-tarefa/adicionar-tarefa.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { PaginaInicialComponent } from './pagina-inicial/pagina-inicial.component';
+import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao-encontrada.component';
 
 
 @NgModule({
@@ -18,7 +20,9 @@ import { FormsModule } from '@angular/forms';
     AppComponent,
     ListaAfazeresComponent,
     TarefaDetalheComponent,
-    AdicionarTarefaComponent
+    AdicionarTarefaComponent,
+    PaginaInicialComponent,
+    PaginaNaoEncontradaComponent
   ],
   imports: [
     BrowserModule,
