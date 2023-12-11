@@ -49,6 +49,7 @@ export class ListaAfazeresService {
    * @returns Observable da tarefa
    */
   adicionarTarefa(tarefa: Tarefa): Observable<Tarefa> {
+    tarefa.finalizada = false;
     return this.http.post<Tarefa>(this.url, tarefa, this.httpOptions).pipe(
       catchError(this.handleError<Tarefa>(`adicionarTarefa id=${tarefa.id}`))
     );
