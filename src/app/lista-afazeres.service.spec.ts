@@ -2,12 +2,22 @@ import { TestBed } from '@angular/core/testing';
 
 import { ListaAfazeresService } from './lista-afazeres.service';
 import { Tarefa } from './tarefa';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
+import { inject } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ListaAfazeresService', () => {
   let service: ListaAfazeresService;
+  let httpMock: HttpTestingController;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({ 
+      imports: [HttpClientTestingModule],
+      providers: [ListaAfazeresService]
+  });
+  
+    httpMock = TestBed.get(HttpTestingController);
     service = TestBed.inject(ListaAfazeresService);
   });
 

@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdicionarTarefaComponent } from './adicionar-tarefa.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/compiler';
+import { NgbActiveModal, NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 describe('AdicionarTarefaComponent', () => {
   let component: AdicionarTarefaComponent;
@@ -8,7 +11,9 @@ describe('AdicionarTarefaComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AdicionarTarefaComponent]
+      imports: [HttpClientTestingModule],
+      declarations: [AdicionarTarefaComponent],
+      schemas: [NO_ERRORS_SCHEMA],
     });
     fixture = TestBed.createComponent(AdicionarTarefaComponent);
     component = fixture.componentInstance;
