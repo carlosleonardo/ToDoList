@@ -1,6 +1,13 @@
-describe('My First Test', () => {
+describe('Abre aplicatio', () => {
   it('Visits the initial project page', () => {
     cy.visit('/')
-    cy.contains('app is running!')
+    cy.contains('Olá, Angular')
+  })
+
+  it('Adicionar tarefa', () => {
+    cy.visit('/')
+    cy.get('.nav-link').contains('Tarefas').click();
+    cy.get('button').contains('Adicionar').click()
+    cy.get('button').contains('Cancelar').click()
   })
 })
