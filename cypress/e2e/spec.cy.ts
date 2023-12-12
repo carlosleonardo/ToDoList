@@ -1,4 +1,4 @@
-describe('Abre aplicatio', () => {
+describe('Abre aplicativo', () => {
   it('Visits the initial project page', () => {
     cy.visit('/')
     cy.contains('Olá, Angular')
