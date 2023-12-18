@@ -11,6 +11,7 @@ import { Serializer } from '@angular/compiler';
   styleUrls: ['./lista-afazeres.component.css']
 })
 export class ListaAfazeresComponent implements OnInit {
+[x: string]: any;
 
   tarefas!: Tarefa[];
   ocultarFinalizadas: boolean = true;
@@ -39,13 +40,13 @@ export class ListaAfazeresComponent implements OnInit {
 
   alterarTarefa(id: number)
   {
-    let modRef = this.modal.open(AdicionarTarefaComponent, { centered: true, backdrop: 'static'});
-    this.servico.obterTarefa(id).subscribe( (tarefa: any) => {
+    const modRef = this.modal.open(AdicionarTarefaComponent, { centered: true, backdrop: 'static'});
+    this.servico.obterTarefa(id).subscribe( (tarefa: Tarefa) => {
       modRef.componentInstance.tarefa = tarefa;
       modRef.componentInstance.editando = true;
       modRef.result.then( (resultado: Tarefa) => {
         if(resultado) {
-          console.log(resultado);
+          //console.log(resultado);
           this.servico.alterarTarefa(resultado as Tarefa).subscribe( () => {
             this.alternarFinalizadas();
           });

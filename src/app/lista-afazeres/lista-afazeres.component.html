@@ -28,20 +28,22 @@
                 <th>Data Término</th>
                 <th>&nbsp;</th>
             </tr>
-            <tr *ngFor="let tarefa of tarefas" >
-                <td >{{tarefa.id}}</td>
-                <td class="{{tarefa.finalizada ? 'cortado': ''}}">{{tarefa.nome}} </td>
-                <td class="{{tarefa.finalizada ? 'cortado': ''}}">{{tarefa.descricao}} </td>
-                <td >{{tarefa.finalizada ? 'Sim': 'Não'}} </td>
-                <td>{{tarefa.dataInicio | date: 'dd/MM/yyyy HH:mm'}}</td>
-                <td>{{tarefa.dataTermino | date: 'dd/MM/yyyy HH:mm'}}</td>
-                <td>
-                    <button class="btn btn-close" [disabled]="tarefa.finalizada" (click)="excluir(tarefa.id)"></button>
-                    <button class="btn btn-primary" [disabled]="tarefa.finalizada" (click)="alterarTarefa(tarefa.id)">Alterar</button>
-                    <button class="btn btn-primary" [disabled]="tarefa.finalizada" (click)="finalizarTarefa(tarefa.id)">Finalizar</button>
-                </td>
-                
-            </tr>
+            @for (tarefa of tarefas; track tarefa.id) {
+                <tr>
+                    <td >{{tarefa.id}}</td>
+                    <td class="{{tarefa.finalizada ? 'cortado': ''}}">{{tarefa.nome}} </td>
+                    <td class="{{tarefa.finalizada ? 'cortado': ''}}">{{tarefa.descricao}} </td>
+                    <td >{{tarefa.finalizada ? 'Sim': 'Não'}} </td>
+                    <td>{{tarefa.dataInicio | date: 'dd/MM/yyyy HH:mm'}}</td>
+                    <td>{{tarefa.dataTermino | date: 'dd/MM/yyyy HH:mm'}}</td>
+                    <td>
+                        <button class="btn btn-close" [disabled]="tarefa.finalizada" (click)="excluir(tarefa.id)"></button>
+                        <button class="btn btn-primary" [disabled]="tarefa.finalizada" (click)="alterarTarefa(tarefa.id)">Alterar</button>
+                        <button class="btn btn-primary" [disabled]="tarefa.finalizada" (click)="finalizarTarefa(tarefa.id)">Finalizar</button>
+                    </td>
+                    
+                </tr>
+            }
         </table>
     </div>
 </div>
