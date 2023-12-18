@@ -26,7 +26,7 @@ export class ListaAfazeresComponent implements OnInit {
   }
 
   obterTarefas(): void {
-    this.servico.obterTarefas().subscribe( tarefas => this.tarefas = tarefas);
+    this.servico.obterTarefas().subscribe( (tarefas: Tarefa[]) => this.tarefas = tarefas);
   }
 
   excluir(id: number): void {
@@ -40,10 +40,10 @@ export class ListaAfazeresComponent implements OnInit {
   alterarTarefa(id: number)
   {
     let modRef = this.modal.open(AdicionarTarefaComponent, { centered: true, backdrop: 'static'});
-    this.servico.obterTarefa(id).subscribe( tarefa => {
+    this.servico.obterTarefa(id).subscribe( (tarefa: any) => {
       modRef.componentInstance.tarefa = tarefa;
       modRef.componentInstance.editando = true;
-      modRef.result.then( resultado => {
+      modRef.result.then( (resultado: Tarefa) => {
         if(resultado) {
           console.log(resultado);
           this.servico.alterarTarefa(resultado as Tarefa).subscribe( () => {
@@ -56,7 +56,7 @@ export class ListaAfazeresComponent implements OnInit {
 
   abrirDialogo() {
     const mod = this.modal.open(AdicionarTarefaComponent, { centered: true, backdrop: 'static' });
-    mod.result.then( resultado => {
+    mod.result.then( (resultado: Tarefa) => {
       if(resultado) {
         console.log(resultado)
         this.adicionarTarefa(resultado as Tarefa);
@@ -67,7 +67,7 @@ export class ListaAfazeresComponent implements OnInit {
   finalizarTarefa(id: number): void {
     if(confirm("Certo de que quer finalizar a tarefa?"))
     {
-      this.servico.obterTarefa(id).subscribe( tarefa => {
+      this.servico.obterTarefa(id).subscribe( (tarefa: Tarefa) => {
         this.servico.finalizarTarefa(tarefa).subscribe( () => {
           this.alternarFinalizadas();
         })
@@ -75,7 +75,7 @@ export class ListaAfazeresComponent implements OnInit {
     }
   }
   adicionarTarefa(tarefa: Tarefa): void {
-    this.servico.adicionarTarefa(tarefa).subscribe( tarefa => this.tarefas.push(tarefa));
+    this.servico.adicionarTarefa(tarefa).subscribe( (tarefa: Tarefa) => this.tarefas.push(tarefa));
   }
 
   alternarFinalizadas(): void {
@@ -87,8 +87,8 @@ export class ListaAfazeresComponent implements OnInit {
   }
 
   obterTarefasNaoFinalizadas(): void {
-    this.servico.obterTarefas().subscribe( tarefas => {
-      this.tarefas = tarefas.filter( tarefa => {
+    this.servico.obterTarefas().subscribe( (tarefas: any[]) => {
+      this.tarefas = tarefas.filter( (tarefa: { finalizada: boolean; }) => {
         return tarefa.finalizada == false;
       })
     });
