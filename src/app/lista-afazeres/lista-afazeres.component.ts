@@ -40,8 +40,8 @@ export class ListaAfazeresComponent implements OnInit {
 
   alterarTarefa(id: number)
   {
-    const modRef = this.modal.open(AdicionarTarefaComponent, { centered: true, backdrop: 'static'});
     this.servico.obterTarefa(id).subscribe( (tarefa: Tarefa) => {
+      const modRef = this.modal.open(AdicionarTarefaComponent, { centered: true, backdrop: 'static'});
       modRef.componentInstance.tarefa = tarefa;
       modRef.componentInstance.editando = true;
       modRef.result.then( (resultado: Tarefa) => {
