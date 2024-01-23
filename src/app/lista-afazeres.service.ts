@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Tarefa } from './tarefa';
-import { Observable, catchError, of } from 'rxjs';
+import { Observable, catchError, of, take } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParamsOptions } from '@angular/common/http';
 
 @Injectable({
@@ -24,7 +24,7 @@ export class ListaAfazeresService {
    * @returns Observable de tarefa
    */
   obterTarefas(): Observable<Tarefa[]> {
-    return this.http.get<Tarefa[]>(this.url).pipe(
+    return this.http.get<Tarefa[]>(this.url).pipe(take(1),
       catchError(this.handleError<Tarefa[]>('obterTarefas', []))
     );
   }
@@ -36,7 +36,7 @@ export class ListaAfazeresService {
    * @returns Observable da tarefa
    */
   excluirTarefa(id: number): Observable<Tarefa> {
-    return this.http.delete<Tarefa>(`${this.url}/${id}`).pipe(
+    return this.http.delete<Tarefa>(`${this.url}/${id}`).pipe(take(1),
       catchError(this.handleError<Tarefa>(`excluirTarefa id=${id}`))
     );
   }
@@ -50,7 +50,7 @@ export class ListaAfazeresService {
    */
   adicionarTarefa(tarefa: Tarefa): Observable<Tarefa> {
     tarefa.finalizada = false;
-    return this.http.post<Tarefa>(this.url, tarefa, this.httpOptions).pipe(
+    return this.http.post<Tarefa>(this.url, tarefa, this.httpOptions).pipe(take(1),
       catchError(this.handleError<Tarefa>(`adicionarTarefa id=${tarefa.id}`))
     );
   }
@@ -62,7 +62,7 @@ export class ListaAfazeresService {
    * @returns Observable de tarefa
    */
   obterTarefa(id: number) : Observable<Tarefa> {
-    return this.http.get<Tarefa>(`${this.url}/${id}`).pipe(
+    return this.http.get<Tarefa>(`${this.url}/${id}`).pipe(take(1),
       catchError(this.handleError<Tarefa>(`Òbter tarefa id = ${id}`))
     );
   }
@@ -74,7 +74,7 @@ export class ListaAfazeresService {
    * @returns Observable de tarefa
    */
   alterarTarefa(tarefa: Tarefa): Observable<Tarefa> {
-    return this.http.put<Tarefa>(this.url, tarefa, this.httpOptions).pipe(
+    return this.http.put<Tarefa>(this.url, tarefa, this.httpOptions).pipe(take(1),
       catchError(this.handleError<Tarefa>(`Àlterar tarefa id = ${tarefa.id}`))
     );
   }
@@ -89,7 +89,7 @@ export class ListaAfazeresService {
   finalizarTarefa(tarefa: Tarefa): Observable<Tarefa> {
     tarefa.finalizada = true;
     tarefa.dataTermino = new Date();
-    return this.alterarTarefa(tarefa).pipe(
+    return this.alterarTarefa(tarefa).pipe(take(1),
       catchError(this.handleError<Tarefa>(`Tarefa finalizada: ${tarefa.id}`))
     );
   }
