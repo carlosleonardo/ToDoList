@@ -12,11 +12,10 @@ describe('AdicionarTarefaComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, FormsModule],
-      declarations: [AdicionarTarefaComponent],
-      providers: [NgbActiveModal, NgbModal],
-      schemas: [NO_ERRORS_SCHEMA],
-    });
+    imports: [HttpClientTestingModule, FormsModule, AdicionarTarefaComponent],
+    providers: [NgbActiveModal, NgbModal],
+    schemas: [NO_ERRORS_SCHEMA],
+});
     fixture = TestBed.createComponent(AdicionarTarefaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -3,11 +3,14 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ListaAfazeresService } from '../lista-afazeres.service';
 import { Tarefa } from '../tarefa';
 import { TarefaDetalheComponent } from '../tarefa-detalhe/tarefa-detalhe.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-adicionar-tarefa',
-  templateUrl: './adicionar-tarefa.component.html',
-  styleUrls: ['./adicionar-tarefa.component.css']
+    selector: 'app-adicionar-tarefa',
+    templateUrl: './adicionar-tarefa.component.html',
+    styleUrls: ['./adicionar-tarefa.component.css'],
+    standalone: true,
+    imports: [FormsModule]
 })
 export class AdicionarTarefaComponent implements OnInit {
   

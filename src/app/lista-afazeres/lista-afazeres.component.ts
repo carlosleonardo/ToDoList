@@ -4,11 +4,15 @@ import { Tarefa } from '../tarefa';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdicionarTarefaComponent } from '../adicionar-tarefa/adicionar-tarefa.component';
 import { Serializer } from '@angular/compiler';
+import { DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-lista-afazeres',
-  templateUrl: './lista-afazeres.component.html',
-  styleUrls: ['./lista-afazeres.component.css']
+    selector: 'app-lista-afazeres',
+    templateUrl: './lista-afazeres.component.html',
+    styleUrls: ['./lista-afazeres.component.css'],
+    standalone: true,
+    imports: [FormsModule, DatePipe]
 })
 export class ListaAfazeresComponent implements OnInit {
 [x: string]: any;

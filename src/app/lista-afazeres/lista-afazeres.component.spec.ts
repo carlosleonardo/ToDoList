@@ -11,10 +11,9 @@ describe('ListaAfazeresComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, FormsModule],
-      declarations: [ListaAfazeresComponent],
-      schemas: [NO_ERRORS_SCHEMA]
-    });
+    imports: [HttpClientTestingModule, FormsModule, ListaAfazeresComponent],
+    schemas: [NO_ERRORS_SCHEMA]
+});
     fixture = TestBed.createComponent(ListaAfazeresComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

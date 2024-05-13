@@ -16,24 +16,21 @@ import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ListaAfazeresComponent,
-    TarefaDetalheComponent,
-    AdicionarTarefaComponent,
-    PaginaInicialComponent,
-    PaginaNaoEncontradaComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(BDNaMemoriaService, { dataEncapsulation: false}),
-    NgbModule,
-    FormsModule
-
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [AppComponent],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        HttpClientInMemoryWebApiModule.forRoot(BDNaMemoriaService, { dataEncapsulation: false }),
+        NgbModule,
+        FormsModule,
+        ListaAfazeresComponent,
+        TarefaDetalheComponent,
+        AdicionarTarefaComponent,
+        PaginaInicialComponent,
+        PaginaNaoEncontradaComponent
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

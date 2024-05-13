@@ -8,8 +8,8 @@ describe('PaginaNaoEncontradaComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PaginaNaoEncontradaComponent]
-    });
+    imports: [PaginaNaoEncontradaComponent]
+});
     fixture = TestBed.createComponent(PaginaNaoEncontradaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

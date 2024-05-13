@@ -8,8 +8,8 @@ describe('PaginaInicialComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PaginaInicialComponent]
-    });
+    imports: [PaginaInicialComponent]
+});
     fixture = TestBed.createComponent(PaginaInicialComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
