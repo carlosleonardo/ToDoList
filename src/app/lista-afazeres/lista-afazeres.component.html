@@ -29,7 +29,7 @@
                 <th>Data Término</th>
                 <th>&nbsp;</th>
             </tr>
-            @for (tarefa of tarefas; track tarefa.id) {
+            @for (tarefa of tarefasFiltradas; track tarefa.id) {
                 <tr>
                     <td >{{tarefa.id}}</td>
                     <td class="{{tarefa.finalizada ? 'cortado': ''}}">{{tarefa.nome}} </td>

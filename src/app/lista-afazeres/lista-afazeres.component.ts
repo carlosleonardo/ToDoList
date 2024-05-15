@@ -7,6 +7,7 @@ import { Serializer } from '@angular/compiler';
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BuscadorComponent } from '../buscador/buscador.component';
+import { FiltroService } from '../filtro.service';
 
 @Component({
     selector: 'app-lista-afazeres',
@@ -16,12 +17,12 @@ import { BuscadorComponent } from '../buscador/buscador.component';
     imports: [FormsModule, DatePipe, BuscadorComponent],
 })
 export class ListaAfazeresComponent implements OnInit {
-    [x: string]: any;
-
-    tarefas!: Tarefa[];
+    tarefas: Tarefa[] = [];
+    tarefasFiltradas: Tarefa[] = [];
     ocultarFinalizadas: boolean = true;
 
     ngOnInit(): void {
+        //this.alternarFinalizadas();
         this.alternarFinalizadas();
     }
 
@@ -30,13 +31,21 @@ export class ListaAfazeresComponent implements OnInit {
      */
     constructor(
         private servico: ListaAfazeresService,
-        private modal: NgbModal
+        private modal: NgbModal,
+        private filtroService: FiltroService
     ) {}
 
     obterTarefas(): void {
-        this.servico
-            .obterTarefas()
-            .subscribe((tarefas: Tarefa[]) => (this.tarefas = tarefas));
+        this.servico.obterTarefas().subscribe((tarefas: Tarefa[]) => {
+            this.tarefas = tarefas;
+            this.tarefasFiltradas = tarefas;
+
+            console.log(
+                `${
+                    this.tarefas.length - this.tarefasFiltradas.length
+                } Tarefas filtrada`
+            );
+        });
     }
 
     excluir(id: number): void {
@@ -97,18 +106,28 @@ export class ListaAfazeresComponent implements OnInit {
     }
 
     alternarFinalizadas(): void {
+        this.obterTarefas();
         if (this.ocultarFinalizadas) {
-            this.obterTarefasNaoFinalizadas();
+            this.filtroService.adicionarFiltro({
+                nome: 'ocultar-finalizadas',
+                valor: this.ocultarFinalizadas,
+                funcaoFiltro: (tarefa: Tarefa) => {
+                    console.log('Filtradas as finalizadas');
+                    if (tarefa.finalizada)
+                        console.log(`Filtrada tarefa ${tarefa.nome}`);
+                    return tarefa.finalizada === false;
+                },
+            });
         } else {
-            this.obterTarefas();
+            this.filtroService.removerFiltro('ocultar-finalizadas');
         }
+        this.obterTarefasNaoFinalizadas();
     }
 
     obterTarefasNaoFinalizadas(): void {
-        this.servico.obterTarefas().subscribe((tarefas: any[]) => {
-            this.tarefas = tarefas.filter((tarefa: { finalizada: boolean }) => {
-                return tarefa.finalizada == false;
-            });
-        });
+        this.tarefasFiltradas = this.filtroService.obterTarefasFiltradas(
+            this.tarefas
+        );
+        console.log(`Existem ${this.tarefasFiltradas.length} filtradas`);
     }
 }
