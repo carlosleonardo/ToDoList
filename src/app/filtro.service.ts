@@ -10,7 +10,8 @@ export class FiltroService {
     constructor() {}
 
     adicionarFiltro(tipoFiltro: IFiltro) {
-        this.filtros.push(tipoFiltro);
+        if (this.filtros.indexOf(tipoFiltro) === -1)
+            this.filtros.push(tipoFiltro);
     }
 
     removerFiltro(nome: string) {
