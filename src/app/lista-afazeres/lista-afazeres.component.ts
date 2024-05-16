@@ -4,25 +4,27 @@ import { Tarefa } from '../tarefa';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdicionarTarefaComponent } from '../adicionar-tarefa/adicionar-tarefa.component';
 import { Serializer } from '@angular/compiler';
-import { DatePipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BuscadorComponent } from '../buscador/buscador.component';
 import { FiltroService } from '../filtro.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
     selector: 'app-lista-afazeres',
     templateUrl: './lista-afazeres.component.html',
     styleUrls: ['./lista-afazeres.component.css'],
     standalone: true,
-    imports: [FormsModule, DatePipe, BuscadorComponent],
+    imports: [FormsModule, DatePipe, BuscadorComponent, AsyncPipe],
 })
 export class ListaAfazeresComponent implements OnInit {
     tarefas: Tarefa[] = [];
     tarefasFiltradas: Tarefa[] = [];
+    tarefasFiltradasSub = new BehaviorSubject<Tarefa[]>([]);
+    tarefasFiltradas$ = this.tarefasFiltradasSub.asObservable();
     ocultarFinalizadas: boolean = true;
 
     ngOnInit(): void {
-        //this.alternarFinalizadas();
         this.alternarFinalizadas();
     }
 
@@ -38,8 +40,9 @@ export class ListaAfazeresComponent implements OnInit {
     obterTarefas(): void {
         this.servico.obterTarefas().subscribe((tarefas: Tarefa[]) => {
             this.tarefas = tarefas;
-            this.tarefasFiltradas = tarefas;
-
+            if (this.tarefasFiltradas.length == 0) {
+                this.tarefasFiltradasSub.next(this.tarefas);
+            }
             console.log(
                 `${
                     this.tarefas.length - this.tarefasFiltradas.length
@@ -93,7 +96,7 @@ export class ListaAfazeresComponent implements OnInit {
     finalizarTarefa(id: number): void {
         if (confirm('Certo de que quer finalizar a tarefa?')) {
             this.servico.obterTarefa(id).subscribe((tarefa: Tarefa) => {
-                this.servico.finalizarTarefa(tarefa).subscribe(() => {
+                this.servico.finalizarTarefa(tarefa).subscribe((_) => {
                     this.alternarFinalizadas();
                 });
             });
@@ -107,6 +110,7 @@ export class ListaAfazeresComponent implements OnInit {
 
     alternarFinalizadas(): void {
         this.obterTarefas();
+
         if (this.ocultarFinalizadas) {
             this.filtroService.adicionarFiltro({
                 nome: 'ocultar-finalizadas',
@@ -129,5 +133,6 @@ export class ListaAfazeresComponent implements OnInit {
             this.tarefas
         );
         console.log(`Existem ${this.tarefasFiltradas.length} filtradas`);
+        this.tarefasFiltradasSub.next(this.tarefasFiltradas);
     }
 }

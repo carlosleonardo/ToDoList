@@ -1,112 +1,137 @@
 import { Injectable } from '@angular/core';
 import { Tarefa } from './tarefa';
-import { Observable, catchError, of, take } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpParamsOptions } from '@angular/common/http';
+import { Observable, catchError, first, of, take } from 'rxjs';
+import {
+    HttpClient,
+    HttpHeaders,
+    HttpParamsOptions,
+} from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
 export class ListaAfazeresService {
-  private url: string = "api/tarefas";
-  private tarefas: Tarefa[] = [];
+    private url: string = 'api/tarefas';
+    private tarefas: Tarefa[] = [];
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-type': 'application/json'
-    })
-  };
-  
-  constructor(private http: HttpClient) { }
-  
-  /**
-   * Obtém todas as tarefas cadastradas
-   * 
-   * @returns Observable de tarefa
-   */
-  obterTarefas(): Observable<Tarefa[]> {
-    return this.http.get<Tarefa[]>(this.url).pipe(take(1),
-      catchError(this.handleError<Tarefa[]>('obterTarefas', []))
-    );
-  }
+    httpOptions = {
+        headers: new HttpHeaders({
+            'Content-type': 'application/json',
+        }),
+    };
 
-  /**
-   * Exclui a tarefa selecionada
-   * 
-   * @param id id da tarefa
-   * @returns Observable da tarefa
-   */
-  excluirTarefa(id: number): Observable<Tarefa> {
-    return this.http.delete<Tarefa>(`${this.url}/${id}`).pipe(take(1),
-      catchError(this.handleError<Tarefa>(`excluirTarefa id=${id}`))
-    );
-  }
+    constructor(private http: HttpClient) {}
 
-  /**
-   * 
-   * Insere uma nova tarefa
-   * 
-   * @param tarefa a tarefa a ser adicionada
-   * @returns Observable da tarefa
-   */
-  adicionarTarefa(tarefa: Tarefa): Observable<Tarefa> {
-    tarefa.finalizada = false;
-    return this.http.post<Tarefa>(this.url, tarefa, this.httpOptions).pipe(take(1),
-      catchError(this.handleError<Tarefa>(`adicionarTarefa id=${tarefa.id}`))
-    );
-  }
+    /**
+     * Obtém todas as tarefas cadastradas
+     *
+     * @returns Observable de tarefa
+     */
+    obterTarefas(): Observable<Tarefa[]> {
+        return this.http
+            .get<Tarefa[]>(this.url)
+            .pipe(
+                first(),
+                catchError(this.handleError<Tarefa[]>('obterTarefas', []))
+            );
+    }
 
-  /**
-   * Recupera a tarefa dado o id dela
-   * 
-   * @param id id da tarefa
-   * @returns Observable de tarefa
-   */
-  obterTarefa(id: number) : Observable<Tarefa> {
-    return this.http.get<Tarefa>(`${this.url}/${id}`).pipe(take(1),
-      catchError(this.handleError<Tarefa>(`Òbter tarefa id = ${id}`))
-    );
-  }
+    /**
+     * Exclui a tarefa selecionada
+     *
+     * @param id id da tarefa
+     * @returns Observable da tarefa
+     */
+    excluirTarefa(id: number): Observable<Tarefa> {
+        return this.http
+            .delete<Tarefa>(`${this.url}/${id}`)
+            .pipe(
+                take(1),
+                catchError(this.handleError<Tarefa>(`excluirTarefa id=${id}`))
+            );
+    }
 
-  /**
-   * Altera os dados de uma tarefa
-   * 
-   * @param tarefa Tarefa a ser alterada
-   * @returns Observable de tarefa
-   */
-  alterarTarefa(tarefa: Tarefa): Observable<Tarefa> {
-    return this.http.put<Tarefa>(this.url, tarefa, this.httpOptions).pipe(take(1),
-      catchError(this.handleError<Tarefa>(`Àlterar tarefa id = ${tarefa.id}`))
-    );
-  }
+    /**
+     *
+     * Insere uma nova tarefa
+     *
+     * @param tarefa a tarefa a ser adicionada
+     * @returns Observable da tarefa
+     */
+    adicionarTarefa(tarefa: Tarefa): Observable<Tarefa> {
+        tarefa.finalizada = false;
+        return this.http
+            .post<Tarefa>(this.url, tarefa, this.httpOptions)
+            .pipe(
+                take(1),
+                catchError(
+                    this.handleError<Tarefa>(`adicionarTarefa id=${tarefa.id}`)
+                )
+            );
+    }
 
-  /**
-   * 
-   * Finaliza a tarefa, mudando o estado para finalizado e atribuído data de término
-   * 
-   * @param tarefa tarefa a finalizar
-   * @returns Observable de Tarefa
-   */
-  finalizarTarefa(tarefa: Tarefa): Observable<Tarefa> {
-    tarefa.finalizada = true;
-    tarefa.dataTermino = new Date();
-    return this.alterarTarefa(tarefa).pipe(take(1),
-      catchError(this.handleError<Tarefa>(`Tarefa finalizada: ${tarefa.id}`))
-    );
-  }
+    /**
+     * Recupera a tarefa dado o id dela
+     *
+     * @param id id da tarefa
+     * @returns Observable de tarefa
+     */
+    obterTarefa(id: number): Observable<Tarefa> {
+        return this.http
+            .get<Tarefa>(`${this.url}/${id}`)
+            .pipe(
+                take(1),
+                catchError(this.handleError<Tarefa>(`Òbter tarefa id = ${id}`))
+            );
+    }
 
-  
-  /**
+    /**
+     * Altera os dados de uma tarefa
+     *
+     * @param tarefa Tarefa a ser alterada
+     * @returns Observable de tarefa
+     */
+    alterarTarefa(tarefa: Tarefa): Observable<Tarefa> {
+        return this.http
+            .put<Tarefa>(this.url, tarefa, this.httpOptions)
+            .pipe(
+                take(1),
+                catchError(
+                    this.handleError<Tarefa>(`Àlterar tarefa id = ${tarefa.id}`)
+                )
+            );
+    }
+
+    /**
+     *
+     * Finaliza a tarefa, mudando o estado para finalizado e atribuído data de término
+     *
+     * @param tarefa tarefa a finalizar
+     * @returns Observable de Tarefa
+     */
+    finalizarTarefa(tarefa: Tarefa): Observable<Tarefa> {
+        tarefa.finalizada = true;
+        tarefa.dataTermino = new Date();
+        return this.alterarTarefa(tarefa).pipe(
+            take(1),
+            catchError(
+                this.handleError<Tarefa>(`Tarefa finalizada: ${tarefa.id}`)
+            )
+        );
+    }
+
+    /**
      * Faz o tratamento do erro, registrando no log e no console
-     * 
+     *
      * @param operation o nome da operação para registrar
      * @param result um Observable válido
      * @returns nada
      */
-  private handleError<T>(operation: string  = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error);
-      
-      return of(result as T);
-    };
-  }
+    private handleError<T>(operation: string = 'operation', result?: T) {
+        return (error: any): Observable<T> => {
+            console.error(error);
+
+            return of(result as T);
+        };
+    }
 }

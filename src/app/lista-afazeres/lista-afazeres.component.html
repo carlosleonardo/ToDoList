@@ -8,7 +8,7 @@
         </span>
         <div class="col col-auto">
             <span class="p-3">
-                <input id="alternarCheckbox" type="checkbox" class="p-3" [(ngModel)]="ocultarFinalizadas" (change)="alternarFinalizadas()"/>
+                <input id="alternarCheckbox" type="checkbox" class="p-3" [(ngModel)]="ocultarFinalizadas" (ngModelChange)="alternarFinalizadas()"/>
                 <label for="alternarCheckbox" class="col-form-label">Ocultar Finalizadas</label>
             </span>
 
@@ -29,7 +29,7 @@
                 <th>Data Término</th>
                 <th>&nbsp;</th>
             </tr>
-            @for (tarefa of tarefasFiltradas; track tarefa.id) {
+            @for (tarefa of tarefasFiltradas$ | async; track tarefa.id) {
                 <tr>
                     <td >{{tarefa.id}}</td>
                     <td class="{{tarefa.finalizada ? 'cortado': ''}}">{{tarefa.nome}} </td>
