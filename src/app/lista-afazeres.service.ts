@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Tarefa } from './tarefa';
-import { Observable, catchError, first, of, take } from 'rxjs';
+import { Observable, catchError, debounceTime, first, of, take } from 'rxjs';
 import {
     HttpClient,
     HttpHeaders,
@@ -113,6 +113,7 @@ export class ListaAfazeresService {
         tarefa.finalizada = true;
         tarefa.dataTermino = new Date();
         return this.alterarTarefa(tarefa).pipe(
+            debounceTime(500),
             catchError(
                 this.handleError<Tarefa>(`Tarefa finalizada: ${tarefa.id}`)
             )
