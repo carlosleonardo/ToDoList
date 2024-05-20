@@ -46,7 +46,7 @@ export class ListaAfazeresService {
         return this.http
             .delete<Tarefa>(`${this.url}/${id}`)
             .pipe(
-                take(1),
+                first(),
                 catchError(this.handleError<Tarefa>(`excluirTarefa id=${id}`))
             );
     }
@@ -63,7 +63,7 @@ export class ListaAfazeresService {
         return this.http
             .post<Tarefa>(this.url, tarefa, this.httpOptions)
             .pipe(
-                take(1),
+                first(),
                 catchError(
                     this.handleError<Tarefa>(`adicionarTarefa id=${tarefa.id}`)
                 )
@@ -80,7 +80,7 @@ export class ListaAfazeresService {
         return this.http
             .get<Tarefa>(`${this.url}/${id}`)
             .pipe(
-                take(1),
+                first(),
                 catchError(this.handleError<Tarefa>(`Òbter tarefa id = ${id}`))
             );
     }
@@ -113,7 +113,7 @@ export class ListaAfazeresService {
         tarefa.finalizada = true;
         tarefa.dataTermino = new Date();
         return this.alterarTarefa(tarefa).pipe(
-            debounceTime(500),
+            first(),
             catchError(
                 this.handleError<Tarefa>(`Tarefa finalizada: ${tarefa.id}`)
             )

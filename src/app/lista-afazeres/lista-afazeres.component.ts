@@ -8,7 +8,7 @@ import { AsyncPipe, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BuscadorComponent } from '../buscador/buscador.component';
 import { FiltroService } from '../filtro.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, debounceTime, switchMap } from 'rxjs';
 
 @Component({
     selector: 'app-lista-afazeres',
@@ -47,6 +47,16 @@ export class ListaAfazeresComponent implements OnInit, OnDestroy {
             if (this.tarefasFiltradas.length == 0) {
                 this.tarefasFiltradas = tarefas;
                 this.tarefasFiltradasSub.next(this.tarefas);
+            } else {
+                this.tarefasFiltradas =
+                    this.filtroService.obterTarefasFiltradas(this.tarefas);
+
+                this.tarefasFiltradasSub.next(this.tarefasFiltradas);
+                console.log(
+                    `${
+                        this.tarefas.length - this.tarefasFiltradas.length
+                    } Tarefas filtrada`
+                );
             }
         });
     }
@@ -95,22 +105,24 @@ export class ListaAfazeresComponent implements OnInit, OnDestroy {
 
     finalizarTarefa(id: number): void {
         if (confirm('Certo de que quer finalizar a tarefa?')) {
-            this.servico.obterTarefa(id).subscribe((tarefa: Tarefa) => {
-                this.servico.finalizarTarefa(tarefa).subscribe(() => {
+            this.servico
+                .obterTarefa(id)
+                .pipe(
+                    switchMap((tarefa) => this.servico.finalizarTarefa(tarefa))
+                )
+                .subscribe(() => {
                     this.alternarFinalizadas();
                 });
-            });
         }
     }
     adicionarTarefa(tarefa: Tarefa): void {
-        this.servico
-            .adicionarTarefa(tarefa)
-            .subscribe((tarefa: Tarefa) => this.tarefas.push(tarefa));
+        this.servico.adicionarTarefa(tarefa).subscribe((tarefa: Tarefa) => {
+            this.tarefas.push(tarefa);
+            this.alternarFinalizadas();
+        });
     }
 
     alternarFinalizadas(): void {
-        this.obterTarefas();
-
         if (this.ocultarFinalizadas) {
             this.filtroService.adicionarFiltro({
                 nome: 'ocultar-finalizadas',
@@ -125,15 +137,6 @@ export class ListaAfazeresComponent implements OnInit, OnDestroy {
         } else {
             this.filtroService.removerFiltro('ocultar-finalizadas');
         }
-        this.tarefasFiltradas = this.filtroService.obterTarefasFiltradas(
-            this.tarefas
-        );
-
-        this.tarefasFiltradasSub.next(this.tarefasFiltradas);
-        console.log(
-            `${
-                this.tarefas.length - this.tarefasFiltradas.length
-            } Tarefas filtrada`
-        );
+        this.obterTarefas();
     }
 }
