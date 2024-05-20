@@ -95,7 +95,7 @@ export class ListaAfazeresService {
         return this.http
             .put<Tarefa>(this.url, tarefa, this.httpOptions)
             .pipe(
-                take(1),
+                first(),
                 catchError(
                     this.handleError<Tarefa>(`Àlterar tarefa id = ${tarefa.id}`)
                 )
@@ -113,7 +113,6 @@ export class ListaAfazeresService {
         tarefa.finalizada = true;
         tarefa.dataTermino = new Date();
         return this.alterarTarefa(tarefa).pipe(
-            take(1),
             catchError(
                 this.handleError<Tarefa>(`Tarefa finalizada: ${tarefa.id}`)
             )

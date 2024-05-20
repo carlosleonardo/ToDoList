@@ -10,14 +10,21 @@ export class FiltroService {
     constructor() {}
 
     adicionarFiltro(tipoFiltro: IFiltro) {
-        if (this.filtros.indexOf(tipoFiltro) === -1)
-            this.filtros.push(tipoFiltro);
+        let indiceFiltro = this.filtros.findIndex(
+            (filtro) =>
+                filtro.nome.toLowerCase() === tipoFiltro.nome.toLowerCase()
+        );
+        if (indiceFiltro === -1) this.filtros.push(tipoFiltro);
     }
 
     removerFiltro(nome: string) {
         this.filtros = this.filtros.filter(
             (filtro) => filtro.nome.toLowerCase() !== nome.toLowerCase()
         );
+    }
+
+    obterFiltros() {
+        return this.filtros;
     }
 
     obterTarefasFiltradas(tarefas: Tarefa[]): Tarefa[] {

@@ -29,7 +29,7 @@ describe('ListaAfazeresComponent', () => {
 
     it('Obter todas as tarefas', () => {
         component.obterTarefas();
-        expect(component.tarefas).toBeTruthy();
+        //expect(component.tarefas).toBeTruthy();
         expect(component.tarefas.length).toEqual(2);
     });
 });
