@@ -1,7 +1,7 @@
 
 <div class="container-fluid p-3">
     <h1>Tarefas</h1>
-    <app-buscador />
+    <app-buscador (aoBuscar)="alternarFinalizadas()"/>
     <div class="row">
         <span class="col">
             <button class="btn btn-primary" (click)="abrirDialogo()">Adicionar</button>
