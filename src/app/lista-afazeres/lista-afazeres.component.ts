@@ -3,12 +3,11 @@ import { ListaAfazeresService } from '../lista-afazeres.service';
 import { Tarefa } from '../tarefa';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdicionarTarefaComponent } from '../adicionar-tarefa/adicionar-tarefa.component';
-import { Serializer } from '@angular/compiler';
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BuscadorComponent } from '../buscador/buscador.component';
 import { FiltroService } from '../filtro.service';
-import { BehaviorSubject, debounceTime, switchMap } from 'rxjs';
+import { BehaviorSubject, switchMap } from 'rxjs';
 
 @Component({
     selector: 'app-lista-afazeres',
@@ -37,27 +36,21 @@ export class ListaAfazeresComponent implements OnInit, OnDestroy {
         private filtroService: FiltroService
     ) {}
 
-    ngOnDestroy(): void {
-        this.tarefasFiltradasSub.unsubscribe();
-    }
+    ngOnDestroy(): void {}
 
     obterTarefas(): void {
         this.servico.obterTarefas().subscribe((tarefas: Tarefa[]) => {
             this.tarefas = tarefas;
-            if (this.tarefasFiltradas.length == 0) {
-                this.tarefasFiltradas = tarefas;
-                this.tarefasFiltradasSub.next(this.tarefas);
-            } else {
-                this.tarefasFiltradas =
-                    this.filtroService.obterTarefasFiltradas(this.tarefas);
+            this.tarefasFiltradas = this.filtroService.obterTarefasFiltradas(
+                this.tarefas
+            );
 
-                this.tarefasFiltradasSub.next(this.tarefasFiltradas);
-                console.log(
-                    `${
-                        this.tarefas.length - this.tarefasFiltradas.length
-                    } Tarefas filtrada`
-                );
-            }
+            this.tarefasFiltradasSub.next(this.tarefasFiltradas);
+            console.log(
+                `${
+                    this.tarefas.length - this.tarefasFiltradas.length
+                } Tarefas filtrada`
+            );
         });
     }
 
