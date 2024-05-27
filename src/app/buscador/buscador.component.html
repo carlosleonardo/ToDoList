@@ -1,13 +1,26 @@
 <div class="container-fluid mb-3 card p-3">
-	<form class="form-group" >
-		<div class="row">
-			<label for="buscar">Nome da Tarefa:</label>
-			<span class="col-8">
-				<input type="search" class="form-control" placeholder="Filtro por nome de Tarefa" id="buscar" #texto/>
-			</span>
-			<span class="col-4">
-				<button class="btn btn-primary" type="button" (click)="buscar(texto.value)">Buscar</button>
-			</span>
-		</div>
-	</form>	
+    <form class="form-group">
+        <div class="row">
+            <label for="buscar">Nome da Tarefa:</label>
+            <span class="col-8">
+                <input
+                    type="search"
+                    class="form-control"
+                    placeholder="Filtro por nome de Tarefa"
+                    id="buscar"
+                    name="buscar"
+                    [(ngModel)]="texto"
+                />
+            </span>
+            <span class="col-4">
+                <button
+                    class="btn btn-primary"
+                    type="button"
+                    (click)="buscar()"
+                >
+                    Buscar
+                </button>
+            </span>
+        </div>
+    </form>
 </div>

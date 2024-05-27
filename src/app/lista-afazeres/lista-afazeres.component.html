@@ -15,6 +15,7 @@
                     class="p-3"
                     [(ngModel)]="ocultarFinalizadas"
                     (onchange)="alternarFinalizadas()"
+                    (ngModelChange)="alternarFinalizadas()"
                 />
                 <label for="alternarCheckbox" class="col-form-label"
                     >Ocultar Finalizadas</label
@@ -69,6 +70,12 @@
                         Finalizar
                     </button>
                 </td>
+            </tr>
+            } @empty {
+            <tr>
+                <strong
+                    >Nenhuma tarefa encontrada para o filtro selecionado</strong
+                >
             </tr>
             }
         </table>
