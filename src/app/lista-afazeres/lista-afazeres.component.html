@@ -1,21 +1,28 @@
-
 <div class="container-fluid p-3">
     <h1>Tarefas</h1>
-    <app-buscador (aoBuscar)="alternarFinalizadas()"/>
+    <app-buscador (aoBuscar)="alternarFinalizadas()" />
     <div class="row">
         <span class="col">
-            <button class="btn btn-primary" (click)="abrirDialogo()">Adicionar</button>
+            <button class="btn btn-primary" (click)="abrirDialogo()">
+                Adicionar
+            </button>
         </span>
         <div class="col col-auto">
             <span class="p-3">
-                <input id="alternarCheckbox" type="checkbox" class="p-3" [(ngModel)]="ocultarFinalizadas" (ngModelChange)="alternarFinalizadas()"/>
-                <label for="alternarCheckbox" class="col-form-label">Ocultar Finalizadas</label>
+                <input
+                    id="alternarCheckbox"
+                    type="checkbox"
+                    class="p-3"
+                    [(ngModel)]="ocultarFinalizadas"
+                    (onchange)="alternarFinalizadas()"
+                />
+                <label for="alternarCheckbox" class="col-form-label"
+                    >Ocultar Finalizadas</label
+                >
             </span>
-
         </div>
     </div>
 </div>
-
 
 <div class="container-fluid">
     <div class="card p-3 table table-striped table-responsive">
@@ -30,20 +37,39 @@
                 <th>&nbsp;</th>
             </tr>
             @for (tarefa of tarefasFiltradas$ | async; track tarefa.id) {
-                <tr>
-                    <td >{{tarefa.id}}</td>
-                    <td class="{{tarefa.finalizada ? 'cortado': ''}}">{{tarefa.nome}} </td>
-                    <td class="{{tarefa.finalizada ? 'cortado': ''}}">{{tarefa.descricao}} </td>
-                    <td >{{tarefa.finalizada ? 'Sim': 'Não'}} </td>
-                    <td>{{tarefa.dataInicio | date: 'dd/MM/yyyy HH:mm'}}</td>
-                    <td>{{tarefa.dataTermino | date: 'dd/MM/yyyy HH:mm'}}</td>
-                    <td>
-                        <button class="btn btn-close" [disabled]="tarefa.finalizada" (click)="excluir(tarefa.id)"></button>
-                        <button class="btn btn-primary" [disabled]="tarefa.finalizada" (click)="alterarTarefa(tarefa.id)">Alterar</button>
-                        <button class="btn btn-primary" [disabled]="tarefa.finalizada" (click)="finalizarTarefa(tarefa.id)">Finalizar</button>
-                    </td>
-                    
-                </tr>
+            <tr>
+                <td>{{ tarefa.id }}</td>
+                <td class="{{ tarefa.finalizada ? 'cortado' : '' }}">
+                    {{ tarefa.nome }}
+                </td>
+                <td class="{{ tarefa.finalizada ? 'cortado' : '' }}">
+                    {{ tarefa.descricao }}
+                </td>
+                <td>{{ tarefa.finalizada ? "Sim" : "Não" }}</td>
+                <td>{{ tarefa.dataInicio | date : "dd/MM/yyyy HH:mm" }}</td>
+                <td>{{ tarefa.dataTermino | date : "dd/MM/yyyy HH:mm" }}</td>
+                <td>
+                    <button
+                        class="btn btn-close"
+                        [disabled]="tarefa.finalizada"
+                        (click)="excluir(tarefa.id)"
+                    ></button>
+                    <button
+                        class="btn btn-primary"
+                        [disabled]="tarefa.finalizada"
+                        (click)="alterarTarefa(tarefa.id)"
+                    >
+                        Alterar
+                    </button>
+                    <button
+                        class="btn btn-primary"
+                        [disabled]="tarefa.finalizada"
+                        (click)="finalizarTarefa(tarefa.id)"
+                    >
+                        Finalizar
+                    </button>
+                </td>
+            </tr>
             }
         </table>
     </div>
