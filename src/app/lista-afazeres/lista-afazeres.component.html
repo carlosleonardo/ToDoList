@@ -81,3 +81,11 @@
         </table>
     </div>
 </div>
+<div class="row ml-3">
+    <span class="col"
+        ><strong
+            >Total de tarefas encontradas:
+            {{ (tarefasFiltradas$ | async)?.length }}
+        </strong></span
+    >
+</div>
