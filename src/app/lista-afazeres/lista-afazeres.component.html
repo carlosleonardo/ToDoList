@@ -8,16 +8,17 @@
             </button>
         </span>
         <div class="col col-auto">
-            <span class="p-3">
+            <span class="p-3 form-switch">
                 <input
                     id="alternarCheckbox"
                     type="checkbox"
-                    class="p-3"
+                    class="form-check-input"
+                    role="switch"
                     [(ngModel)]="ocultarFinalizadas"
                     (onchange)="alternarFinalizadas()"
                     (ngModelChange)="alternarFinalizadas()"
                 />
-                <label for="alternarCheckbox" class="col-form-label"
+                <label for="alternarCheckbox" class="px-1 form-check-label"
                     >Ocultar Finalizadas</label
                 >
             </span>
@@ -51,19 +52,22 @@
                 <td>{{ tarefa.dataTermino | date : "dd/MM/yyyy HH:mm" }}</td>
                 <td>
                     <button
-                        class="btn btn-close"
+                        class="btn btn-danger m-1"
                         [disabled]="tarefa.finalizada"
                         (click)="excluir(tarefa.id)"
-                    ></button>
+                        aria-label="Excluir"
+                    >
+                        Excluir
+                    </button>
                     <button
-                        class="btn btn-primary"
+                        class="btn btn-primary m-1"
                         [disabled]="tarefa.finalizada"
                         (click)="alterarTarefa(tarefa.id)"
                     >
                         Alterar
                     </button>
                     <button
-                        class="btn btn-primary"
+                        class="btn btn-primary m-1"
                         [disabled]="tarefa.finalizada"
                         (click)="finalizarTarefa(tarefa.id)"
                     >
