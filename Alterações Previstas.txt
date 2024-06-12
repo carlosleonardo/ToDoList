@@ -1,0 +1,15 @@
+Implementação de novo campo Prioridade nas tarefas. Alterações no ToDoList em:
+
+lista-afazeres.component.html - exibir novo campo, inclusive ordenar pela prioridade
+lista-afazeres.component.ts - tratar novo campo, considerar ordenação como descrito acima
+lista-afazeres.component.spec.ts
+tarefas.ts - criar novo campo
+lista-afazeres.service.ts - CRUD com novo campo
+lista-afazeres.service.spec.ts
+adicionar-tarefa.component.ts - tratar novo campo
+adicionar-tarefa.component.html - exibir novo campo para edição
+adicionar-tarefa.component.spec.ts
+bdna-memoria.service.ts - tarefas mockadas devem incluir novo campo
+
+Tempo estimado pessimista: 3 HD
+Tempo estimado otimista: 2 HD
