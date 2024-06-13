@@ -37,6 +37,7 @@
                     <th>Finalizada</th>
                     <th>Data início</th>
                     <th>Data Término</th>
+                    <th>Prioridade</th>
                     <th>&nbsp;</th>
                 </tr>
             </thead>
@@ -55,6 +56,7 @@
                     <td>
                         {{ tarefa.dataTermino | date : "dd/MM/yyyy HH:mm" }}
                     </td>
+                    <td>{{ tarefa.prioridade }}</td>
                     <td>
                         <button
                             class="btn btn-danger m-1"

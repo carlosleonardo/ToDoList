@@ -1,69 +1,117 @@
-<div class="fade show" >
-  <div class="modal-content">
-    <div class="modal-header">
-      <h4 class="modal-title">{{editando ? 'Alterar Tarefa':'Adicionar Tarefa'}}</h4>
-      <button class="btn btn-close" (click)="fecharDialogo()"></button>
-    </div>
-    <!-- name deve ser defindo para que o ngModel possa validar o campo. Já o id é para o label -->
-    <div class="modal-body">
-      <form class="form-group" #adicionarTarefaForm="ngForm" (ngSubmit)="confirmar()">
-        <label for="nome">Nome da tarefa</label>
-        <input name="nome" ngbAutofocus id="nome" required [(ngModel)]="tarefa.nome" type="text" class="form-control"
-          placeholder="Nome da tarefa" #nome="ngModel" minlength="6">
-          @if (nome.invalid && (nome.dirty || nome.touched)) {
-            <div class="alert alert-danger">
-              @if (nome.errors?.['required']) {
-                <div>
-                  Nome é requerido
-                </div>
-              }
-              @if (nome.errors?.['minlength']) {
-                <div>
-                  Comprimento mínimo deve ser de 6
-                </div>
-              }
-            </div>
-          }
-
-          <label for="descricao">Descrição</label>
-          <textarea class="form-control" placeholder="Descrição da tarefa" maxlength="100"
-          [(ngModel)]="tarefa.descricao" #descricao="ngModel" name="descricao" id="descricao"></textarea>
-          @if (descricao.invalid && (descricao.dirty || descricao.touched)) {
-            <div class="alert alert-danger">
-              @if (descricao.errors?.['maxlength']) {
-                <div>
-                  Tamanho máximo é de 100 caracteres
-                </div>
-              }
-            </div>
-          }
-
-          <label for="dataInicio">Data inicial</label>
-          <input name="dataInicio" type="date" class="form-control" [(ngModel)]="tarefa.dataInicio" #dataInicio="ngModel"
-            required >
-            @if (dataInicio.invalid && (dataInicio.dirty || dataInicio.touched)) {
-              <div class="alert alert-danger">
-                @if (dataInicio.errors?.['required']) {
-                  <div>
-                    Data de início requerida
-                  </div>
-                }
-              </div>
-            }
-
-            <div class="modal-footer">
-              <button class="btn btn-secundary " (click)="fecharDialogo()">Cancelar</button>
-              <button class="btn btn-primary" [disabled]="adicionarTarefaForm.form.invalid"
-              type="submit">Confirmar</button>
-            </div>
-          </form>
+<div class="fade show">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">
+                {{ editando ? "Alterar Tarefa" : "Adicionar Tarefa" }}
+            </h4>
+            <button class="btn btn-close" (click)="fecharDialogo()"></button>
         </div>
+        <!-- name deve ser defindo para que o ngModel possa validar o campo. Já o id é para o label -->
+        <div class="modal-body">
+            <form
+                class="form-group"
+                #adicionarTarefaForm="ngForm"
+                (ngSubmit)="confirmar()"
+            >
+                <label for="nome">Nome da tarefa</label>
+                <input
+                    name="nome"
+                    ngbAutofocus
+                    id="nome"
+                    required
+                    [(ngModel)]="tarefa.nome"
+                    type="text"
+                    class="form-control"
+                    placeholder="Nome da tarefa"
+                    #nome="ngModel"
+                    minlength="6"
+                />
+                @if (nome.invalid && (nome.dirty || nome.touched)) {
+                <div class="alert alert-danger">
+                    @if (nome.errors?.['required']) {
+                    <div>Nome é requerido</div>
+                    } @if (nome.errors?.['minlength']) {
+                    <div>Comprimento mínimo deve ser de 6</div>
+                    }
+                </div>
+                }
 
-      </div>
+                <label for="descricao">Descrição</label>
+                <textarea
+                    class="form-control"
+                    placeholder="Descrição da tarefa"
+                    maxlength="100"
+                    [(ngModel)]="tarefa.descricao"
+                    #descricao="ngModel"
+                    name="descricao"
+                    id="descricao"
+                ></textarea>
+                @if (descricao.invalid && (descricao.dirty ||
+                descricao.touched)) {
+                <div class="alert alert-danger">
+                    @if (descricao.errors?.['maxlength']) {
+                    <div>Tamanho máximo é de 100 caracteres</div>
+                    }
+                </div>
+                }
 
+                <label for="dataInicio">Data inicial</label>
+                <input
+                    name="dataInicio"
+                    type="date"
+                    class="form-control"
+                    [(ngModel)]="tarefa.dataInicio"
+                    #dataInicio="ngModel"
+                    required
+                />
+                @if (dataInicio.invalid && (dataInicio.dirty ||
+                dataInicio.touched)) {
+                <div class="alert alert-danger">
+                    @if (dataInicio.errors?.['required']) {
+                    <div>Data de início requerida</div>
+                    }
+                </div>
+                }
+
+                <label for="prioridade">Prioridade</label>
+                <select
+                    name="prioridade"
+                    id="prioridade"
+                    class="form-control"
+                    [(ngModel)]="tarefa.prioridade"
+                    #prioridade="ngModel"
+                    required
+                >
+                    <!-- <option [value]="tarefa.prioridade">
+                        Selecionar Prioridade
+                    </option> -->
+                    @for(prioridade of nomesEnumeracaoTipoPrioridade; track
+                    $index) {
+                    <option [value]="prioridade">{{ prioridade }}</option>
+                    }
+                </select>
+                @if (prioridade.invalid && (prioridade.dirty ||
+                prioridade.touched)) {
+                <div class="alert alert-danger">
+                    @if( prioridade.errors?.['required']) {
+                    <div>Prioridade deve ser informada</div>
+                    }
+                </div>
+                }
+
+                <div class="modal-footer">
+                    <button class="btn btn-secundary" (click)="fecharDialogo()">
+                        Cancelar
+                    </button>
+                    <button
+                        class="btn btn-primary"
+                        [disabled]="adicionarTarefaForm.form.invalid"
+                        type="submit"
+                    >
+                        Confirmar
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
-
-
-
-
-
+</div>

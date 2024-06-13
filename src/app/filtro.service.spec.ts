@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { FiltroService } from './filtro.service';
-import { Tarefa } from './tarefa';
+import { Tarefa, TipoPrioridade } from './tarefa';
 
 describe('FiltroService', () => {
     let service: FiltroService;
@@ -23,6 +23,7 @@ describe('FiltroService', () => {
                 descricao: 'Uma tarefa',
                 finalizada: false,
                 dataInicio: new Date(),
+                prioridade: TipoPrioridade.Media,
             },
             {
                 id: 2,
@@ -31,6 +32,7 @@ describe('FiltroService', () => {
                 finalizada: true,
                 dataInicio: new Date(),
                 dataTermino: new Date(),
+                prioridade: TipoPrioridade.Baixa,
             },
         ];
         service.adicionarFiltro({

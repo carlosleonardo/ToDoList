@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ListaAfazeresService } from '../lista-afazeres.service';
-import { Tarefa } from '../tarefa';
+import { Tarefa, TipoPrioridade } from '../tarefa';
 import { TarefaDetalheComponent } from '../tarefa-detalhe/tarefa-detalhe.component';
 import { FormsModule } from '@angular/forms';
 
@@ -10,25 +10,27 @@ import { FormsModule } from '@angular/forms';
     templateUrl: './adicionar-tarefa.component.html',
     styleUrls: ['./adicionar-tarefa.component.css'],
     standalone: true,
-    imports: [FormsModule]
+    imports: [FormsModule],
 })
 export class AdicionarTarefaComponent implements OnInit {
-  
-  ngOnInit(): void {
-    console.log(this.tarefa);
-  }
-  @Input() tarefa : Tarefa = {} as Tarefa;
-  @Input() editando: boolean = false;
+    nomesEnumeracaoTipoPrioridade = Object.values(TipoPrioridade);
 
-  constructor(private servico: ListaAfazeresService, private modal: NgbActiveModal) {
-  }
-  
-  fecharDialogo(): void {
-    this.modal.dismiss('Cancelado');
-  }
+    ngOnInit(): void {
+        console.log(this.tarefa);
+    }
+    @Input() tarefa: Tarefa = {} as Tarefa;
+    @Input() editando: boolean = false;
 
-  confirmar() {
-    this.modal.close(this.tarefa);
-  }
- 
+    constructor(
+        private servico: ListaAfazeresService,
+        private modal: NgbActiveModal
+    ) {}
+
+    fecharDialogo(): void {
+        this.modal.dismiss('Cancelado');
+    }
+
+    confirmar() {
+        this.modal.close(this.tarefa);
+    }
 }

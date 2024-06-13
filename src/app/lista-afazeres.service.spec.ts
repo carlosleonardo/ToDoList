@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { ListaAfazeresService } from './lista-afazeres.service';
-import { Tarefa } from './tarefa';
+import { Tarefa, TipoPrioridade } from './tarefa';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import {
     HttpClientTestingModule,
@@ -40,6 +40,7 @@ describe('ListaAfazeresService', () => {
             descricao: 'Uma descrição',
             dataInicio: new Date(),
             finalizada: false,
+            prioridade: TipoPrioridade.Baixa,
         };
 
         let minhasTarefas: Tarefa[] = [];
@@ -60,6 +61,7 @@ describe('ListaAfazeresService', () => {
             dataInicio: new Date(),
             finalizada: false,
             dataTermino: new Date(),
+            prioridade: TipoPrioridade.Alta,
         };
         service.adicionarTarefa(tarefa);
         tarefa = {
@@ -69,6 +71,7 @@ describe('ListaAfazeresService', () => {
             dataInicio: new Date(),
             finalizada: true,
             dataTermino: new Date(),
+            prioridade: TipoPrioridade.Media,
         };
         service.adicionarTarefa(tarefa);
 
