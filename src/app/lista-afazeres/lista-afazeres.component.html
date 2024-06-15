@@ -56,7 +56,9 @@
                     <td>
                         {{ tarefa.dataTermino | date : "dd/MM/yyyy HH:mm" }}
                     </td>
-                    <td>{{ tarefa.prioridade }}</td>
+                    <td>
+                        {{ obterNomePrioridade(tarefa.prioridade) }}
+                    </td>
                     <td>
                         <button
                             class="btn btn-danger m-1"

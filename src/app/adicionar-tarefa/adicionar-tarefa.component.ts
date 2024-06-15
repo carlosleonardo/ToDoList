@@ -13,7 +13,12 @@ import { FormsModule } from '@angular/forms';
     imports: [FormsModule],
 })
 export class AdicionarTarefaComponent implements OnInit {
-    nomesEnumeracaoTipoPrioridade = Object.values(TipoPrioridade);
+    nomesEnumeracaoTipoPrioridade = [
+        { valor: TipoPrioridade.Alta, nome: 'Alta' },
+        { valor: TipoPrioridade.Media, nome: 'Média' },
+        { valor: TipoPrioridade.Baixa, nome: 'Baixa' },
+        { valor: TipoPrioridade.Nenhuma, nome: 'Nenhuma' },
+    ];
 
     ngOnInit(): void {
         console.log(this.tarefa);

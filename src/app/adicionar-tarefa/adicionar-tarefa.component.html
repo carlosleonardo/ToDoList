@@ -82,12 +82,11 @@
                     #prioridade="ngModel"
                     required
                 >
-                    <!-- <option [value]="tarefa.prioridade">
-                        Selecionar Prioridade
-                    </option> -->
                     @for(prioridade of nomesEnumeracaoTipoPrioridade; track
                     $index) {
-                    <option [value]="prioridade">{{ prioridade }}</option>
+                    <option [value]="prioridade.valor">
+                        {{ prioridade.nome }}
+                    </option>
                     }
                 </select>
                 @if (prioridade.invalid && (prioridade.dirty ||

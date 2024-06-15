@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ListaAfazeresService } from '../lista-afazeres.service';
-import { Tarefa } from '../tarefa';
+import { Tarefa, TipoPrioridade } from '../tarefa';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdicionarTarefaComponent } from '../adicionar-tarefa/adicionar-tarefa.component';
 import { AsyncPipe, DatePipe } from '@angular/common';
@@ -16,7 +16,7 @@ import { BehaviorSubject, switchMap } from 'rxjs';
     standalone: true,
     imports: [FormsModule, DatePipe, BuscadorComponent, AsyncPipe],
 })
-export class ListaAfazeresComponent implements OnInit, OnDestroy {
+export class ListaAfazeresComponent implements OnInit {
     tarefas: Tarefa[] = [];
     tarefasFiltradas: Tarefa[] = [];
     tarefasFiltradasSub = new BehaviorSubject<Tarefa[]>([]);
@@ -25,6 +25,16 @@ export class ListaAfazeresComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.obterTarefas();
+    }
+
+    obterNomePrioridade(prioridade: TipoPrioridade): string {
+        const mapeamento = {
+            [TipoPrioridade.Alta]: 'Alta',
+            [TipoPrioridade.Media]: 'Média',
+            [TipoPrioridade.Baixa]: 'Baixa',
+            [TipoPrioridade.Nenhuma]: 'Nenhuma',
+        };
+        return mapeamento[prioridade];
     }
 
     /**
@@ -36,11 +46,11 @@ export class ListaAfazeresComponent implements OnInit, OnDestroy {
         private filtroService: FiltroService
     ) {}
 
-    ngOnDestroy(): void {}
-
     obterTarefas(): void {
         this.servico.obterTarefas().subscribe((tarefas: Tarefa[]) => {
-            this.tarefas = tarefas;
+            this.tarefas = tarefas.sort(
+                (tarefa1, tarefa2) => tarefa1.prioridade - tarefa2.prioridade
+            );
             this.tarefasFiltradas = this.filtroService.obterTarefasFiltradas(
                 this.tarefas
             );

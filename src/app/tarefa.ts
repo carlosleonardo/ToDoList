@@ -1,8 +1,8 @@
 export enum TipoPrioridade {
-    Alta = 'Alta',
-    Media = 'Média',
-    Baixa = 'Baixa',
-    Nenhuma = 'Nenhuma',
+    Alta = 1,
+    Media = 2,
+    Baixa = 3,
+    Nenhuma = 4,
 }
 
 export interface Tarefa {
