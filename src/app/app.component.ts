@@ -11,9 +11,15 @@ import { TrocarTemaService } from './trocar-tema.service';
 })
 export class AppComponent implements OnInit {
     servicoTrocarTema = inject(TrocarTemaService);
+    temaEscolhido = window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light';
 
     ngOnInit(): void {
-        const tema = sessionStorage.getItem('tema');
+        let tema = sessionStorage.getItem('tema');
+        if (!tema) {
+            tema = this.temaEscolhido;
+        }
         this.servicoTrocarTema.trocarTema(tema as string);
     }
     title = 'Lista de Tarefas';
