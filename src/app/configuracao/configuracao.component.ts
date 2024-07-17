@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TrocarTemaService } from '../trocar-tema.service';
 
@@ -9,12 +9,15 @@ import { TrocarTemaService } from '../trocar-tema.service';
     templateUrl: './configuracao.component.html',
     styleUrl: './configuracao.component.css',
 })
-export class ConfiguracaoComponent {
-    temaEscolhido = 'dark';
+export class ConfiguracaoComponent implements OnInit {
+    ngOnInit(): void {
+        this.temaEscolhido = this.servicoTrocarTema.obterTema();
+    }
     servicoTrocarTema = inject(TrocarTemaService);
+    temaEscolhido: string | undefined;
+
     trocarTema() {
-        this.servicoTrocarTema.trocarTema(this.temaEscolhido);
-        const tema = this.servicoTrocarTema.obterTema();
-        sessionStorage.setItem('tema', tema as string);
+        this.servicoTrocarTema.trocarTema(this.temaEscolhido as string);
+        sessionStorage.setItem('tema', this.temaEscolhido as string);
     }
 }
