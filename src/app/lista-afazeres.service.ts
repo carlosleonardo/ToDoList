@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Tarefa } from './tarefa';
 import { Observable, catchError, debounceTime, first, of, take } from 'rxjs';
-import {
-    HttpClient,
-    HttpHeaders,
-    HttpParamsOptions,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParamsOptions } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root',

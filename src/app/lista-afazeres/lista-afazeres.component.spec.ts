@@ -1,9 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ListaAfazeresComponent } from './lista-afazeres.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/compiler';
 import { FormsModule } from '@angular/forms';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('ListaAfazeresComponent', () => {
     let component: ListaAfazeresComponent;
@@ -11,13 +12,11 @@ describe('ListaAfazeresComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [
-                HttpClientTestingModule,
-                FormsModule,
-                ListaAfazeresComponent,
-            ],
-            schemas: [NO_ERRORS_SCHEMA],
-        });
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [FormsModule,
+        ListaAfazeresComponent],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
         fixture = TestBed.createComponent(ListaAfazeresComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();

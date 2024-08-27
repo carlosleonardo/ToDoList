@@ -2,11 +2,8 @@ import { TestBed } from '@angular/core/testing';
 
 import { ListaAfazeresService } from './lista-afazeres.service';
 import { Tarefa, TipoPrioridade } from './tarefa';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import {
-    HttpClientTestingModule,
-    HttpTestingController,
-} from '@angular/common/http/testing';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { inject } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -18,12 +15,9 @@ describe('ListaAfazeresService', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [
-                HttpClientTestingModule,
-                InMemoryWebApiModule.forRoot(BDNaMemoriaService),
-            ],
-            providers: [ListaAfazeresService],
-        });
+    imports: [InMemoryWebApiModule.forRoot(BDNaMemoriaService)],
+    providers: [ListaAfazeresService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
 
         //httpMock = TestBed.inject(HttpTestingController);
         service = TestBed.inject(ListaAfazeresService);

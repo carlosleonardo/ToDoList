@@ -1,10 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdicionarTarefaComponent } from './adicionar-tarefa.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/compiler';
 import { NgbActiveModal, NgbModal, NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('AdicionarTarefaComponent', () => {
   let component: AdicionarTarefaComponent;
@@ -12,9 +13,9 @@ describe('AdicionarTarefaComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-    imports: [HttpClientTestingModule, FormsModule, AdicionarTarefaComponent],
-    providers: [NgbActiveModal, NgbModal],
     schemas: [NO_ERRORS_SCHEMA],
+    imports: [FormsModule, AdicionarTarefaComponent],
+    providers: [NgbActiveModal, NgbModal, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
 });
     fixture = TestBed.createComponent(AdicionarTarefaComponent);
     component = fixture.componentInstance;
