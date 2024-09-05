@@ -1,9 +1,15 @@
 <title>{{ title }}</title>
 
 <nav class="navbar navbar-expand-lg navbar-light p-3 sticky-top">
-    <a class="nav-link navbar-brand" routerLink="/">Página Inicial</a>
-    <a class="nav-link navbar-brand" routerLink="tarefas">Tarefas</a>
-    <a class="nav-link navbar-brand" routerLink="configuracao">Configuração</a>
+    <a routerLinkActive class="nav-link navbar-brand" routerLink="/"
+        >Página Inicial</a
+    >
+    <a routerLinkActive class="nav-link navbar-brand" routerLink="lista-tarefas"
+        >Tarefas</a
+    >
+    <a routerLinkActive class="nav-link navbar-brand" routerLink="configuracao"
+        >Configuração</a
+    >
 </nav>
 
 <router-outlet></router-outlet>

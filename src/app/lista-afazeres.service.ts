@@ -1,13 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Tarefa } from './tarefa';
 import { Observable, catchError, debounceTime, first, of, take } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpParamsOptions } from '@angular/common/http';
+import {
+    HttpClient,
+    HttpHeaders,
+    HttpParamsOptions,
+} from '@angular/common/http';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
     providedIn: 'root',
 })
 export class ListaAfazeresService {
-    private url: string = 'api/tarefas';
+    private url: string = environment.urlBase;
     private tarefas: Tarefa[] = [];
 
     httpOptions = {

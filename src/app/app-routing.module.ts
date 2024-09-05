@@ -7,12 +7,12 @@ import { ConfiguracaoComponent } from './configuracao/configuracao.component';
 
 const routes: Routes = [
     {
-        path: 'tarefas',
-        component: ListaAfazeresComponent,
-    },
-    {
         path: '',
         component: PaginaInicialComponent,
+    },
+    {
+        path: 'lista-tarefas',
+        component: ListaAfazeresComponent,
     },
     {
         path: 'configuracao',
