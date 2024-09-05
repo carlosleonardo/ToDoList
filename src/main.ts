@@ -7,7 +7,6 @@ import { AppComponent } from './app/app.component';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BDNaMemoriaService } from './app/bdna-memoria.service';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import {
     withInterceptorsFromDi,
     provideHttpClient,
@@ -21,9 +20,7 @@ bootstrapApplication(AppComponent, {
         importProvidersFrom(
             BrowserModule,
             AppRoutingModule,
-            //HttpClientInMemoryWebApiModule.forRoot(BDNaMemoriaService, {
-            //    dataEncapsulation: false,
-            //}),
+
             NgbModule,
             FormsModule
         ),
