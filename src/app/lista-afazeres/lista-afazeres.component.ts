@@ -19,12 +19,12 @@ import { BehaviorSubject, switchMap } from 'rxjs';
 export class ListaAfazeresComponent implements OnInit {
     tarefas: Tarefa[] = [];
     tarefasFiltradas: Tarefa[] = [];
-    tarefasFiltradasSub = new BehaviorSubject<Tarefa[]>([]);
+    private tarefasFiltradasSub = new BehaviorSubject<Tarefa[]>([]);
     tarefasFiltradas$ = this.tarefasFiltradasSub.asObservable();
     ocultarFinalizadas: boolean = true;
 
     ngOnInit(): void {
-        this.obterTarefas();
+        this.alternarFinalizadas();
     }
 
     obterNomePrioridade(prioridade: TipoPrioridade): string {
