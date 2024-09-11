@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Tarefa } from './tarefa';
 import { Observable, catchError, debounceTime, first, of, take } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpParamsOptions } from '@angular/common/http';
+import {
+    HttpClient,
+    HttpHeaders,
+    HttpParamsOptions,
+} from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -90,7 +94,7 @@ export class ListaAfazeresService {
      */
     alterarTarefa(tarefa: Tarefa): Observable<Tarefa> {
         return this.http
-            .put<Tarefa>(this.url, tarefa, this.httpOptions)
+            .put<Tarefa>(`${this.url}/${tarefa.id}`, tarefa, this.httpOptions)
             .pipe(
                 first(),
                 catchError(
