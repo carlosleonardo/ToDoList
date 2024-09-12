@@ -56,11 +56,6 @@ export class ListaAfazeresComponent implements OnInit {
             );
 
             this.tarefasFiltradasSub.next(this.tarefasFiltradas);
-            console.log(
-                `${
-                    this.tarefas.length - this.tarefasFiltradas.length
-                } Tarefas filtrada`
-            );
         });
     }
 
@@ -82,7 +77,6 @@ export class ListaAfazeresComponent implements OnInit {
             modRef.componentInstance.editando = true;
             modRef.result.then((resultado: Tarefa) => {
                 if (resultado) {
-                    //console.log(resultado);
                     this.servico
                         .alterarTarefa(resultado as Tarefa)
                         .subscribe(() => {
@@ -100,7 +94,6 @@ export class ListaAfazeresComponent implements OnInit {
         });
         mod.result.then((resultado: Tarefa) => {
             if (resultado) {
-                console.log(resultado);
                 this.adicionarTarefa(resultado as Tarefa);
             }
         });
@@ -131,9 +124,6 @@ export class ListaAfazeresComponent implements OnInit {
                 nome: 'ocultar-finalizadas',
                 valor: this.ocultarFinalizadas,
                 funcaoFiltro: (tarefa: Tarefa) => {
-                    console.log('Filtradas as finalizadas');
-                    if (tarefa.finalizada)
-                        console.log(`Filtrada tarefa ${tarefa.nome}`);
                     return tarefa.finalizada === false;
                 },
             });
