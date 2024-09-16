@@ -1,0 +1,4 @@
+.navbar .nav-link.active {
+    color: #0d6efd;
+    border-bottom: 2px solid #fd0d0d;
+}
