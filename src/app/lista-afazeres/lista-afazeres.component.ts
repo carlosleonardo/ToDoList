@@ -17,8 +17,6 @@ import { BehaviorSubject, switchMap } from 'rxjs';
     imports: [FormsModule, DatePipe, BuscadorComponent, AsyncPipe],
 })
 export class ListaAfazeresComponent implements OnInit {
-    tarefas: Tarefa[] = [];
-    tarefasFiltradas: Tarefa[] = [];
     private tarefasFiltradasSub = new BehaviorSubject<Tarefa[]>([]);
     tarefasFiltradas$ = this.tarefasFiltradasSub.asObservable();
     ocultarFinalizadas: boolean = true;
@@ -48,19 +46,13 @@ export class ListaAfazeresComponent implements OnInit {
 
     obterTarefas(): void {
         this.servico.obterTarefas().subscribe((tarefas: Tarefa[]) => {
-            this.tarefas = tarefas.sort(
+            const tarefasOrdenadas = tarefas.sort(
                 (tarefa1, tarefa2) => tarefa1.prioridade - tarefa2.prioridade
             );
-            this.tarefasFiltradas = this.filtroService.obterTarefasFiltradas(
-                this.tarefas
-            );
+            const tarefasFiltradas =
+                this.filtroService.obterTarefasFiltradas(tarefasOrdenadas);
 
-            this.tarefasFiltradasSub.next(this.tarefasFiltradas);
-            console.log(
-                `${
-                    this.tarefas.length - this.tarefasFiltradas.length
-                } Tarefas filtrada`
-            );
+            this.tarefasFiltradasSub.next(tarefasFiltradas);
         });
     }
 
@@ -120,7 +112,10 @@ export class ListaAfazeresComponent implements OnInit {
     }
     adicionarTarefa(tarefa: Tarefa): void {
         this.servico.adicionarTarefa(tarefa).subscribe((tarefa: Tarefa) => {
-            this.tarefas.push(tarefa);
+            this.tarefasFiltradasSub.next([
+                ...this.tarefasFiltradasSub.getValue(),
+                tarefa,
+            ]);
             this.alternarFinalizadas();
         });
     }
@@ -131,9 +126,6 @@ export class ListaAfazeresComponent implements OnInit {
                 nome: 'ocultar-finalizadas',
                 valor: this.ocultarFinalizadas,
                 funcaoFiltro: (tarefa: Tarefa) => {
-                    console.log('Filtradas as finalizadas');
-                    if (tarefa.finalizada)
-                        console.log(`Filtrada tarefa ${tarefa.nome}`);
                     return tarefa.finalizada === false;
                 },
             });
