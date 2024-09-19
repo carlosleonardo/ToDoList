@@ -6,7 +6,7 @@ export enum TipoPrioridade {
 }
 
 export interface Tarefa {
-    id: number;
+    id?: number;
     nome: string;
     descricao?: string;
     finalizada: boolean;

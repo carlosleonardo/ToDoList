@@ -89,6 +89,13 @@ export class ListaAfazeresComponent implements OnInit {
             centered: true,
             backdrop: 'static',
         });
+        mod.componentInstance.tarefa = {
+            nome: '',
+            finalizada: false,
+            dataInicio: new Date(),
+            prioridade: TipoPrioridade.Nenhuma,
+        } as Tarefa;
+        mod.componentInstance.editando = false;
         mod.result.then((resultado: Tarefa) => {
             if (resultado) {
                 this.adicionarTarefa(resultado as Tarefa);

@@ -63,7 +63,7 @@
                         <button
                             class="btn btn-danger m-1"
                             [disabled]="tarefa.finalizada"
-                            (click)="excluir(tarefa.id)"
+                            (click)="excluir(tarefa.id!)"
                             aria-label="Excluir"
                         >
                             Excluir
@@ -71,14 +71,14 @@
                         <button
                             class="btn btn-primary m-1"
                             [disabled]="tarefa.finalizada"
-                            (click)="alterarTarefa(tarefa.id)"
+                            (click)="alterarTarefa(tarefa.id!)"
                         >
                             Alterar
                         </button>
                         <button
                             class="btn btn-primary m-1"
                             [disabled]="tarefa.finalizada"
-                            (click)="finalizarTarefa(tarefa.id)"
+                            (click)="finalizarTarefa(tarefa.id!)"
                         >
                             Finalizar
                         </button>
