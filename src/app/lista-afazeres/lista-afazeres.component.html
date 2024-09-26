@@ -95,12 +95,9 @@
             </tbody>
         </table>
     </div>
-    <div class="row">
-        <span class="col"
-            ><strong
-                >Total de tarefas encontradas:
-                {{ (tarefasFiltradas$ | async)?.length }}
-            </strong></span
-        >
-    </div>
+
+    <strong
+        >Total de tarefas encontradas:
+        {{ (tarefasFiltradas$ | async)?.length }}
+    </strong>
 </div>
