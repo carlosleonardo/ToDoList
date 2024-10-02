@@ -1,9 +1,14 @@
 <title>{{ title }}</title>
 
 <nav class="navbar navbar-expand-lg p-3 sticky-top">
-    <a routerLinkActive="active" class="nav-link navbar-brand" routerLink="/"
+    <a
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="nav-link navbar-brand"
+        routerLink="/"
         >Página Inicial</a
     >
+
     <a
         routerLinkActive="active"
         class="nav-link navbar-brand"
