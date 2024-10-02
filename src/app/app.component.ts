@@ -7,7 +7,7 @@ import { TrocarTemaService } from './trocar-tema.service';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
     standalone: true,
-    imports: [RouterLink, RouterOutlet],
+    imports: [RouterLink, RouterOutlet, RouterLinkActive],
 })
 export class AppComponent implements OnInit {
     servicoTrocarTema = inject(TrocarTemaService);
