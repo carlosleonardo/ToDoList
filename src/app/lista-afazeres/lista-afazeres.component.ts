@@ -13,8 +13,7 @@ import { BehaviorSubject, switchMap } from 'rxjs';
     selector: 'app-lista-afazeres',
     templateUrl: './lista-afazeres.component.html',
     styleUrls: ['./lista-afazeres.component.css'],
-    standalone: true,
-    imports: [FormsModule, DatePipe, BuscadorComponent, AsyncPipe],
+    imports: [FormsModule, DatePipe, BuscadorComponent, AsyncPipe]
 })
 export class ListaAfazeresComponent implements OnInit {
     private tarefasFiltradasSub = new BehaviorSubject<Tarefa[]>([]);

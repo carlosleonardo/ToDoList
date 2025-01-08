@@ -9,8 +9,7 @@ import { FormsModule } from '@angular/forms';
     selector: 'app-adicionar-tarefa',
     templateUrl: './adicionar-tarefa.component.html',
     styleUrls: ['./adicionar-tarefa.component.css'],
-    standalone: true,
-    imports: [FormsModule],
+    imports: [FormsModule]
 })
 export class AdicionarTarefaComponent implements OnInit {
     nomesEnumeracaoTipoPrioridade = [

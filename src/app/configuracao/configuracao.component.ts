@@ -4,10 +4,9 @@ import { TrocarTemaService } from '../trocar-tema.service';
 
 @Component({
     selector: 'app-configuracao',
-    standalone: true,
     imports: [FormsModule],
     templateUrl: './configuracao.component.html',
-    styleUrl: './configuracao.component.css',
+    styleUrl: './configuracao.component.css'
 })
 export class ConfiguracaoComponent implements OnInit {
     ngOnInit(): void {

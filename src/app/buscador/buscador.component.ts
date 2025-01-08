@@ -4,10 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-buscador',
-    standalone: true,
     imports: [FormsModule],
     templateUrl: './buscador.component.html',
-    styleUrl: './buscador.component.css',
+    styleUrl: './buscador.component.css'
 })
 export class BuscadorComponent {
     filtroService = inject(FiltroService);
