@@ -11,5 +11,5 @@
 }
 
 .active {
-    background-color: black;
+    border-bottom: 2px solid #fd0d0d;
 }
