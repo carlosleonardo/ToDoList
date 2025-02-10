@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Tarefa } from './tarefa';
 import { Observable, catchError, first, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -8,6 +8,8 @@ import { environment } from 'src/environments/environment.development';
     providedIn: 'root',
 })
 export class ListaAfazeresService {
+    private http = inject(HttpClient);
+
     private url: string = environment.urlBase;
     private tarefas: Tarefa[] = [];
 
@@ -16,8 +18,6 @@ export class ListaAfazeresService {
             'Content-type': 'application/json',
         }),
     };
-
-    constructor(private http: HttpClient) {}
 
     /**
      * Obtém todas as tarefas cadastradas

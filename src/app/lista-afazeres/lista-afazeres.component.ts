@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { ListaAfazeresService } from '../lista-afazeres.service';
 import { Tarefa, TipoPrioridade } from '../tarefa';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -16,6 +16,10 @@ import { BehaviorSubject, switchMap } from 'rxjs';
     imports: [FormsModule, DatePipe, BuscadorComponent, AsyncPipe]
 })
 export class ListaAfazeresComponent implements OnInit {
+    private servico = inject(ListaAfazeresService);
+    private modal = inject(NgbModal);
+    private filtroService = inject(FiltroService);
+
     private tarefasFiltradasSub = new BehaviorSubject<Tarefa[]>([]);
     tarefasFiltradas$ = this.tarefasFiltradasSub.asObservable();
     ocultarFinalizadas: boolean = true;
@@ -33,15 +37,6 @@ export class ListaAfazeresComponent implements OnInit {
         };
         return mapeamento[prioridade];
     }
-
-    /**
-     *  Inicializa a lista de tarefas, injetando um serviço usando DI
-     */
-    constructor(
-        private servico: ListaAfazeresService,
-        private modal: NgbModal,
-        private filtroService: FiltroService
-    ) {}
 
     obterTarefas(): void {
         this.servico.obterTarefas().subscribe((tarefas: Tarefa[]) => {

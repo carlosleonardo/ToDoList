@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ListaAfazeresService } from '../lista-afazeres.service';
 import { Tarefa, TipoPrioridade } from '../tarefa';
@@ -12,6 +12,9 @@ import { FormsModule } from '@angular/forms';
     imports: [FormsModule]
 })
 export class AdicionarTarefaComponent implements OnInit {
+    private servico = inject(ListaAfazeresService);
+    private modal = inject(NgbActiveModal);
+
     nomesEnumeracaoTipoPrioridade = [
         { valor: TipoPrioridade.Alta, nome: 'Alta' },
         { valor: TipoPrioridade.Media, nome: 'Média' },
@@ -24,11 +27,6 @@ export class AdicionarTarefaComponent implements OnInit {
     }
     @Input() tarefa: Tarefa = {} as Tarefa;
     @Input() editando: boolean = false;
-
-    constructor(
-        private servico: ListaAfazeresService,
-        private modal: NgbActiveModal
-    ) {}
 
     fecharDialogo(): void {
         this.modal.dismiss('Cancelado');
