@@ -2,7 +2,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <h4 class="modal-title">
-                {{ editando ? "Alterar Tarefa" : "Adicionar Tarefa" }}
+                {{ editando() ? "Alterar Tarefa" : "Adicionar Tarefa" }}
             </h4>
             <button class="btn btn-close" (click)="fecharDialogo()"></button>
         </div>

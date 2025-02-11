@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, Input, OnInit, inject, input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ListaAfazeresService } from '../lista-afazeres.service';
 import { Tarefa, TipoPrioridade } from '../tarefa';
@@ -26,7 +26,7 @@ export class AdicionarTarefaComponent implements OnInit {
         console.log(this.tarefa);
     }
     @Input() tarefa: Tarefa = {} as Tarefa;
-    @Input() editando: boolean = false;
+    readonly editando = input<boolean>(false);
 
     fecharDialogo(): void {
         this.modal.dismiss('Cancelado');
