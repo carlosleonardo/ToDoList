@@ -1,6 +1,6 @@
 <div class="container-fluid p-3">
     <h1>Tarefas</h1>
-    <app-buscador (aoBuscar)="alternarFinalizadas()" />
+    <app-buscador (aoBuscar)="alternarFinalizadas()"/>
     <div class="row">
         <span class="col">
             <button class="btn btn-primary" (click)="abrirDialogo()">
@@ -19,7 +19,7 @@
                     (ngModelChange)="alternarFinalizadas()"
                 />
                 <label for="alternarCheckbox" class="px-1 form-check-label"
-                    >Ocultar Finalizadas</label
+                >Ocultar Finalizadas</label
                 >
             </span>
         </div>
@@ -30,74 +30,75 @@
     <div class="card p-3 table-responsive">
         <table class="table table-sm table-striped table-hover">
             <thead>
-                <tr>
-                    <th>Id da tarefa</th>
-                    <th>Nome</th>
-                    <th>Descrição</th>
-                    <th>Finalizada</th>
-                    <th>Data início</th>
-                    <th>Data Término</th>
-                    <th>Prioridade</th>
-                    <th>&nbsp;</th>
-                </tr>
+            <tr>
+                <th>Id da tarefa</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Finalizada</th>
+                <th>Data início</th>
+                <th>Data Término</th>
+                <th>Prioridade</th>
+                <th>&nbsp;</th>
+            </tr>
             </thead>
             <tbody>
-                @for (tarefa of tarefasFiltradas$ | async; track tarefa.id) {
-                <tr>
-                    <td>{{ tarefa.id }}</td>
-                    <td class="{{ tarefa.finalizada ? 'cortado' : '' }}">
-                        {{ tarefa.nome }}
-                    </td>
-                    <td class="{{ tarefa.finalizada ? 'cortado' : '' }}">
-                        {{ tarefa.descricao }}
-                    </td>
-                    <td>{{ tarefa.finalizada ? "Sim" : "Não" }}</td>
-                    <td>{{ tarefa.dataInicio | date : "dd/MM/yyyy HH:mm" }}</td>
-                    <td>
-                        {{ tarefa.dataTermino | date : "dd/MM/yyyy HH:mm" }}
-                    </td>
-                    <td>
-                        {{ obterNomePrioridade(tarefa.prioridade) }}
-                    </td>
-                    <td>
-                        <button
-                            class="btn btn-danger m-1"
-                            [disabled]="tarefa.finalizada"
-                            (click)="excluir(tarefa.id!)"
-                            aria-label="Excluir"
-                        >
-                            Excluir
-                        </button>
-                        <button
-                            class="btn btn-primary m-1"
-                            [disabled]="tarefa.finalizada"
-                            (click)="alterarTarefa(tarefa.id!)"
-                        >
-                            Alterar
-                        </button>
-                        <button
-                            class="btn btn-primary m-1"
-                            [disabled]="tarefa.finalizada"
-                            (click)="finalizarTarefa(tarefa.id!)"
-                        >
-                            Finalizar
-                        </button>
-                    </td>
-                </tr>
+                @let tarefas = tarefasFiltradas$ | async;
+                @for (tarefa of tarefas; track tarefa.id) {
+                    <tr>
+                        <td>{{ tarefa.id }}</td>
+                        <td class="{{ tarefa.finalizada ? 'cortado' : '' }}">
+                            {{ tarefa.nome }}
+                        </td>
+                        <td class="{{ tarefa.finalizada ? 'cortado' : '' }}">
+                            {{ tarefa.descricao }}
+                        </td>
+                        <td>{{ tarefa.finalizada ? "Sim" : "Não" }}</td>
+                        <td>{{ tarefa.dataInicio | date : "dd/MM/yyyy HH:mm" }}</td>
+                        <td>
+                            {{ tarefa.dataTermino | date : "dd/MM/yyyy HH:mm" }}
+                        </td>
+                        <td>
+                            {{ obterNomePrioridade(tarefa.prioridade) }}
+                        </td>
+                        <td>
+                            <button
+                                class="btn btn-danger m-1"
+                                [disabled]="tarefa.finalizada"
+                                (click)="excluir(tarefa.id!)"
+                                aria-label="Excluir"
+                            >
+                                Excluir
+                            </button>
+                            <button
+                                class="btn btn-primary m-1"
+                                [disabled]="tarefa.finalizada"
+                                (click)="alterarTarefa(tarefa.id!)"
+                            >
+                                Alterar
+                            </button>
+                            <button
+                                class="btn btn-primary m-1"
+                                [disabled]="tarefa.finalizada"
+                                (click)="finalizarTarefa(tarefa.id!)"
+                            >
+                                Finalizar
+                            </button>
+                        </td>
+                    </tr>
                 } @empty {
-                <tr>
-                    <strong
+                    <tr>
+                        <strong
                         >Nenhuma tarefa encontrada para o filtro
-                        selecionado</strong
-                    >
-                </tr>
+                            selecionado</strong
+                        >
+                    </tr>
                 }
             </tbody>
         </table>
     </div>
 
     <strong
-        >Total de tarefas encontradas:
-        {{ (tarefasFiltradas$ | async)?.length }}
+    >Total de tarefas encontradas:
+        {{ tarefas?.length }}
     </strong>
 </div>
